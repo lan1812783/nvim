@@ -131,8 +131,8 @@ function completion.config()
           nvim_lua = '[LUA]',
           luasnip = '[Luasnip]',
           buffer = '[Buffer]',
-          path = '[Path]',
-          emoji = '[Emoji]',
+          -- path = '[Path]',
+          -- emoji = '[Emoji]',
         })[entry.source.name]
         return vim_item
       end,
@@ -143,8 +143,8 @@ function completion.config()
       { name = 'luasnip' }, -- For luasnip users.
     }, {
       { name = 'buffer' },
-      { name = 'path' },
-      { name = 'emoji' },
+      -- { name = 'path' },
+      -- { name = 'emoji' },
     })
   })
 end

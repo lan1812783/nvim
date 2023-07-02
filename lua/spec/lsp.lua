@@ -58,12 +58,11 @@ function lsp.config()
   for _, server in pairs(require('commons').servers) do
     local opts = {
       capabilities = capabilities,
-      settings = {},
     }
 
     local require_ok, settings = pcall(require, 'settings.' .. server)
     if require_ok then
-      opts.settings = vim.tbl_deep_extend('force', settings, opts.settings)
+      opts = vim.tbl_deep_extend('force', settings, opts)
     end
 
     lspconfig[server].setup(opts)
