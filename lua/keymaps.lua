@@ -9,15 +9,16 @@ for _, mode in pairs({ 'n', 'i', 'v', 'x' }) do
 end
 
 -- Indentation --
--- <Esc> = <C-[> so mapping <C-[> malfunctions <Esc> -> use <S-Tab> instead
+-- <Esc> = <C-[> so mapping <C-[> malfunctions <Esc>
+-- <C-i> = <S-Tab> so mapping <S-Tab> malfunctions <C-i> (which is for jumping to the next buffer)
 -- map('n', '<C-[>', '<<_')
 -- map('n', '<C-]>', '>>_')
 -- map('v', '<C-[>', '<gv')
 -- map('v', '<C-]>', '>gv')
-map('n', '<S-Tab>', '<<_')
-map('n', '<Tab>', '>>_')
-map('v', '<S-Tab>', '<gv')
-map('v', '<Tab>', '>gv')
+map('n', '<', '<<_')
+map('n', '>', '>>_')
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 
 -- Move text up and down --
 map('n', '<A-j>', ':m .+1<CR>==')

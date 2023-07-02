@@ -9,13 +9,14 @@ commons = {
           options = vim.tbl_extend('force', options, opts)
         end
         vim.keymap.set(mode, lhs, rhs, options)
-      end
+      end,
   },
   servers = {
     'lua_ls',
     'html',
     'cssls',
     'tsserver',
+    'bashls',
   },
 }
 
