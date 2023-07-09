@@ -1,8 +1,7 @@
-local map = require('commons').utils.map
-
 local nvim_tree = {
   'nvim-tree/nvim-tree.lua',
   version = '*',
+  lazy = false,
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
@@ -18,11 +17,16 @@ function nvim_tree.config()
 
   -- empty setup using defaults
   require('nvim-tree').setup({
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+    },
     git = {
       ignore = false,
     },
   })
 
+  local map = require('commons').utils.map
   map('n', '<leader>e', ':NvimTreeToggle<CR>')
 end
 
