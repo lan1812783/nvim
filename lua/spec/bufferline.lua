@@ -63,6 +63,14 @@ function bufferline.config()
       -- },
       numbers = 'both', -- ordinal & buffer_id
       separator_style = 'slant',
+      offsets = {
+        {
+          filetype = 'NvimTree',
+          text = 'File Explorer',
+          text_align = 'center',
+          separator = true
+        }
+      },
     }
   }
 end
