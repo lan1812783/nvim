@@ -33,11 +33,12 @@ local options = {
   ruler = false,                           -- hide the line and column number of the cursor position
   numberwidth = 4,                         -- minimal number of columns to use for the line number {default 4}
   signcolumn = 'yes',                      -- always show the sign column, otherwise it would shift the text each time
-  wrap = true,                            -- display lines as one long line
+  wrap = true,                             -- display lines as one long line
   scrolloff = 8,                           -- minimal number of screen lines to keep above and below the cursor
   sidescrolloff = 8,                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
   guifont = 'monospace:h17',               -- the font used in graphical neovim applications
   -- guicursor = 'a:block',                   -- all modes use the same block cursor (default: n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20)
+  colorcolumn = '80',                      -- ruler
 }
 
 for k, v in pairs(options) do
