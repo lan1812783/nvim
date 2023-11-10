@@ -4,7 +4,9 @@ local lualine = {
 }
 
 function lualine.config()
-  require('lualine').setup()
+  require('lualine').setup({
+    extensions = { 'lazy', 'nvim-dap-ui', 'nvim-tree', 'toggleterm' } -- extensions 'mason' causes errors
+  })
 end
 
 return lualine
