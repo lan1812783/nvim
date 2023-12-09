@@ -17,6 +17,7 @@ commons = {
     'cssls',
     'tsserver',
     'jdtls',
+    'clangd',
     'gopls',
     'bashls',
   },

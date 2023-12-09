@@ -20,6 +20,34 @@ local dapui = {
       dapui.close()
     end
 
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        -- provide the absolute path for `codelldb` command if not using the one installed using `mason.nvim`
+        command = 'codelldb',
+        args = { '--port', '${port}' },
+      },
+    }
+    dap.configurations.c = {
+      {
+        name = 'Launch file',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          local path
+          vim.ui.input({ prompt = 'Path to executable: ', default = vim.loop.cwd() .. '/build/' }, function(input)
+            path = input
+          end)
+          vim.cmd [[redraw]]
+          return path
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+      },
+    }
+    dap.configurations.cpp = dap.configurations.c
+
     local map = require('commons').utils.map
     map('n', '<F5>', function() dap.continue() end, { desc = 'DAP: continue' })
     map('n', '<F10>', function() dap.step_over() end, { desc = 'DAP: step over' })
