@@ -20,6 +20,7 @@ commons = {
     'clangd',
     'gopls',
     'bashls',
+    'yamlls',
   },
 }
 
