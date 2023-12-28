@@ -1,5 +1,5 @@
 local comment = {
-  "numToStr/Comment.nvim",
+  'numToStr/Comment.nvim',
   dependencies = {
     -- This plugin does not depend on nvim-treesitter however it is recommended in order to easily install tree-sitter parsers.
     {
@@ -9,7 +9,7 @@ local comment = {
       end,
     },
     {
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
   },
 }

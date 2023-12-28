@@ -12,10 +12,10 @@ function lsp.config()
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  map('n', '<space>d', vim.diagnostic.open_float)
-  map('n', '[d', vim.diagnostic.goto_prev)
-  map('n', ']d', vim.diagnostic.goto_next)
-  map('n', '<space>q', vim.diagnostic.setloclist)
+  map('n', '<space>d', vim.diagnostic.open_float, { desc = 'LSP: diagnostic' })
+  map('n', '[d', vim.diagnostic.goto_prev, { desc = 'LSP: jump to previous diagnostic' })
+  map('n', ']d', vim.diagnostic.goto_next, { desc = 'LSP: jump to next diagnostic' })
+  map('n', '<space>q', vim.diagnostic.setloclist, { desc = 'LSP: add buffer diagnostics to the location list' })
 
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
@@ -27,24 +27,27 @@ function lsp.config()
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
+      local function getOpts(desc)
+        return { buffer = ev.buf, desc = desc }
+      end
       local opts = { buffer = ev.buf }
-      map('n', 'gD', vim.lsp.buf.declaration, opts)
-      map('n', 'gd', vim.lsp.buf.definition, opts)
-      map('n', 'K', vim.lsp.buf.hover, opts)
-      map('n', 'gi', vim.lsp.buf.implementation, opts)
-      map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-      map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-      map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+      map('n', 'gD', vim.lsp.buf.declaration, getOpts('LSP: go to declaration'))
+      map('n', 'gd', vim.lsp.buf.definition, getOpts('LSP: go to definiiion'))
+      map('n', 'K', vim.lsp.buf.hover, getOpts('LSP: hover'))
+      map('n', 'gi', vim.lsp.buf.implementation, getOpts('LSP: go to implementation'))
+      map('n', '<C-k>', vim.lsp.buf.signature_help, getOpts('LSP: signature help'))
+      map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, getOpts('LSP: add workspace folder'))
+      map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, getOpts('LSP: remove workspace folder'))
       map('n', '<space>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, opts)
-      map('n', '<space>D', vim.lsp.buf.type_definition, opts)
+      end, getOpts('LSP: list workspace folders'))
+      map('n', '<space>D', vim.lsp.buf.type_definition, getOpts('LSP: type definition'))
       map('n', '<space>rn', vim.lsp.buf.rename, opts)
-      map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-      map('n', 'gr', vim.lsp.buf.references, opts)
+      map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, getOpts('LSP: code action'))
+      map('n', 'gr', vim.lsp.buf.references, getOpts('LSP: go to references'))
       map('n', '<space>f', function()
         vim.lsp.buf.format { async = true }
-      end, opts)
+      end, getOpts('LSP: format buffer'))
     end,
   })
 
