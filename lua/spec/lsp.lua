@@ -1,5 +1,6 @@
 local lsp = {
   'neovim/nvim-lspconfig',
+  cond = not vim.api.nvim_win_get_option(0, 'diff'), -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
   dependencies = {
     {
       'hrsh7th/cmp-nvim-lsp',

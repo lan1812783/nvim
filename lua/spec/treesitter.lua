@@ -16,7 +16,9 @@ function treesitter.config()
     ensure_installed = {
       'lua',
       'html', 'css', 'javascript', 'tsx',
-      'bash', 'c', 'cpp', 'java', 'python', 'yaml'
+      'cmake', 'make', 'c', 'cpp',
+      'go', 'java', 'python',
+      'bash', 'yaml'
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -26,8 +28,11 @@ function treesitter.config()
     -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
     auto_install = false,
 
-    -- List of parsers to ignore installing (for 'all')
+    -- List of parsers to ignore installing (or 'all')
     -- ignore_install = { 'javascript' },
+
+    -- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+    -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
     highlight = {
       enable = true,
