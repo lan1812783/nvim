@@ -1,7 +1,8 @@
 local toggleterm = {
   'akinsho/toggleterm.nvim',
   version = '*',
-  opts = {--[[ things you want to change go here]]},
+  opts = { --[[ things you want to change go here]]
+  },
 }
 
 function toggleterm.config()
@@ -21,6 +22,7 @@ function toggleterm.config()
     insert_mappings = true, -- whether or not the open mapping applies in insert mode
     direction = 'float',
     close_on_exit = true, -- close the terminal window when the process exits
+    auto_scroll = false, -- automatically scroll to the bottom on terminal output
     float_opts = {
       -- The border key is *almost* the same as 'nvim_open_win'
       -- see :h nvim_open_win for details on borders however
@@ -30,8 +32,8 @@ function toggleterm.config()
     },
   }
 
-  local Terminal  = require('toggleterm.terminal').Terminal
-  local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true })
+  local Terminal = require('toggleterm.terminal').Terminal
+  local lazygit = Terminal:new { cmd = 'lazygit', hidden = true }
 
   function _Lazygit_toggle()
     lazygit:toggle()

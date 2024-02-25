@@ -5,7 +5,7 @@ local comment = {
     {
       'nvim-treesitter/nvim-treesitter',
       build = function()
-        require('nvim-treesitter.install').update({ with_sync = true })
+        require('nvim-treesitter.install').update { with_sync = true }
       end,
     },
     {
@@ -15,11 +15,11 @@ local comment = {
 }
 
 function comment.config()
-  local Comment = require('Comment')
+  local Comment = require 'Comment'
 
   local opts = {
     -- ignores empty lines
-    ignore = '^$'
+    ignore = '^$',
   }
 
   Comment.setup(opts)

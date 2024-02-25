@@ -1,7 +1,7 @@
 local treesitter = {
   'nvim-treesitter/nvim-treesitter',
   build = function()
-    require('nvim-treesitter.install').update({ with_sync = true })
+    require('nvim-treesitter.install').update { with_sync = true }
   end,
   dependencies = {
     'JoosepAlviste/nvim-ts-context-commentstring',
@@ -15,10 +15,19 @@ function treesitter.config()
     -- A list of parser names, or 'all' (the five listed parsers should always be installed)
     ensure_installed = {
       'lua',
-      'html', 'css', 'javascript', 'tsx',
-      'cmake', 'make', 'c', 'cpp',
-      'go', 'java', 'python',
-      'bash', 'yaml'
+      'html',
+      'css',
+      'javascript',
+      'tsx',
+      'cmake',
+      'make',
+      'c',
+      'cpp',
+      'go',
+      'java',
+      'python',
+      'bash',
+      'yaml',
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -32,7 +41,7 @@ function treesitter.config()
     -- ignore_install = { 'javascript' },
 
     -- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-    -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+    -- parser_install_dir = '/some/path/to/store/parsers', -- Remember to run vim.opt.runtimepath:append('/some/path/to/store/parsers')!
 
     highlight = {
       enable = true,
@@ -44,11 +53,12 @@ function treesitter.config()
       -- disable = { 'c', 'rust' },
       -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
       disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-              return true
-          end
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats =
+          pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
       end,
 
       -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -57,7 +67,7 @@ function treesitter.config()
       -- Instead of true it can also be a list of languages
       additional_vim_regex_highlighting = false,
 
-      -- Enable nvim-ts-context-commentstring 
+      -- Enable nvim-ts-context-commentstring
       context_commentstring = {
         enable = true,
       },
@@ -71,14 +81,14 @@ function treesitter.config()
         node_decremental = 'grm',
       },
       indent = {
-        enable = true
-      }
+        enable = true,
+      },
     },
   }
 
   vim.opt.foldmethod = 'expr'
   vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-  vim.opt.foldenable = false                     -- Disable folding at startup.
+  vim.opt.foldenable = false -- Disable folding at startup.
 end
 
 return treesitter

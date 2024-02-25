@@ -16,7 +16,7 @@ function nvim_tree.config()
   vim.opt.termguicolors = true
 
   -- empty setup using defaults
-  require('nvim-tree').setup({
+  require('nvim-tree').setup {
     diagnostics = {
       enable = true,
       show_on_dirs = true,
@@ -24,7 +24,7 @@ function nvim_tree.config()
     git = {
       ignore = false,
     },
-  })
+  }
 
   local map = require('commons').utils.map
   map('n', '<leader>e', ':NvimTreeToggle<CR>')

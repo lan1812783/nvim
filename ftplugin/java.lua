@@ -1,8 +1,8 @@
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
-local jdtls_dir = vim.fn.expand('~/.local/share/nvim/mason/packages/jdtls')
-                              -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                              -- Must point to the              
-                              -- eclipse.jdt.ls installation    
+local jdtls_dir = vim.fn.expand '~/.local/share/nvim/mason/packages/jdtls'
+-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-- Must point to the
+-- eclipse.jdt.ls installation
 local workspace_dir = jdtls_dir .. '/workspace' .. vim.fn.getcwd()
 --                                   ^^
 --                                   string concattenation in Lua
@@ -15,7 +15,7 @@ local config = {
 
     -- 💀
     '/zserver/java/jdk-17/bin/java', -- or '/path/to/java17_or_newer/bin/java'
-            -- depends on if `java` is in your $PATH env variable and if it points to the right version.
+    -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
@@ -24,27 +24,35 @@ local config = {
     '-Dlog.level=ALL',
     '-Xmx1g',
     '--add-modules=ALL-SYSTEM',
-    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-    '-jar', vim.fn.glob(jdtls_dir .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
-
+    '--add-opens',
+    'java.base/java.util=ALL-UNNAMED',
+    '--add-opens',
+    'java.base/java.lang=ALL-UNNAMED',
+    '-jar',
+    vim.fn.glob(jdtls_dir .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
 
     -- 💀
-    '-configuration', jdtls_dir .. '/config_linux',
-                                         -- ^^^^^
-                                         -- Change to one of `linux`, `win` or `mac`
-                                         -- Depending on your system.
-
+    '-configuration',
+    jdtls_dir .. '/config_linux',
+    -- ^^^^^
+    -- Change to one of `linux`, `win` or `mac`
+    -- Depending on your system.
 
     -- 💀
     -- See `data directory configuration` section in the README
-    '-data', workspace_dir,
+    '-data',
+    workspace_dir,
   },
 
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
   -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = require('jdtls.setup').find_root({'.git', 'pom.xml', 'mvnw', 'gradlew'}),
+  root_dir = require('jdtls.setup').find_root {
+    '.git',
+    'pom.xml',
+    'mvnw',
+    'gradlew',
+  },
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -77,7 +85,7 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {}
+    bundles = {},
   },
 }
 -- This starts a new client & server,
