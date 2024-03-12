@@ -14,7 +14,7 @@ local config = {
   cmd = {
 
     -- 💀
-    '/zserver/java/jdk-17/bin/java', -- or '/path/to/java17_or_newer/bin/java'
+    '~/.sdkman/candidates/java/17.0.10-tem/bin/java', -- or '/path/to/java17_or_newer/bin/java'
     -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -59,21 +59,21 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      configuration = {
-        -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-        -- And search for `interface RuntimeOption`
-        -- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
-        runtimes = {
-          {
-            name = 'JavaSE-1.8',
-            path = '/zserver/java/jdk1.8.0',
-          },
-          {
-            name = 'JavaSE-17',
-            path = '/zserver/java/jdk-17',
-          },
-        },
-      },
+      -- configuration = {
+      --   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+      --   -- And search for `interface RuntimeOption`
+      --   -- The `name` is NOT arbitrary, but must match one of the elements from `enum ExecutionEnvironment` in the link above
+      --   runtimes = {
+      --     {
+      --       name = 'JavaSE-1.8',
+      --       path = '~/.sdkman/candidates/java/-tem',
+      --     },
+      --     {
+      --       name = 'JavaSE-17',
+      --       path = '~/.sdkman/candidates/java/17.0.10-tem',
+      --     },
+      --   },
+      -- },
     },
   },
 

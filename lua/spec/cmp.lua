@@ -143,6 +143,9 @@ function completion.config()
       -- { name = 'path' },
       -- { name = 'emoji' },
     }),
+    experimental = {
+      ghost_text = true,
+    },
   }
 end
 
