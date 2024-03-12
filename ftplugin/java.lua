@@ -66,7 +66,7 @@ local config = {
       --   runtimes = {
       --     {
       --       name = 'JavaSE-1.8',
-      --       path = '~/.sdkman/candidates/java/-tem',
+      --       path = '~/.sdkman/candidates/java/8.0.402-tem',
       --     },
       --     {
       --       name = 'JavaSE-17',
