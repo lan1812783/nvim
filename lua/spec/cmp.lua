@@ -2,9 +2,6 @@ local completion = {
   'hrsh7th/nvim-cmp',
   dependencies = {
     {
-      'neovim/nvim-lspconfig',
-    },
-    {
       'hrsh7th/cmp-nvim-lsp',
     },
     {
@@ -46,10 +43,10 @@ function completion.config()
     unpack = unpack or table.unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0
-      and vim.api
-          .nvim_buf_get_lines(0, line - 1, line, true)[1]
-          :sub(col, col)
-          :match '%s'
+        and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match '%s'
         == nil
   end
 
@@ -133,7 +130,7 @@ function completion.config()
       format = function(entry, vim_item)
         -- Kind icons
         vim_item.kind =
-          string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+            string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
         -- Source
         vim_item.menu = ({
           buffer = '[Buffer]',
@@ -177,20 +174,6 @@ function completion.config()
     }),
     matching = { disallow_symbol_nonprefix_matching = false },
   })
-
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  for _, server in pairs(require('commons').servers) do
-    local opts = {
-      capabilities = capabilities,
-    }
-
-    local require_ok, settings = pcall(require, 'settings.' .. server)
-    if require_ok then
-      opts = vim.tbl_deep_extend('force', settings, opts)
-    end
-
-    require('lspconfig')[server].setup(opts)
-  end
 end
 
 return completion
