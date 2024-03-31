@@ -1,11 +1,6 @@
 local lsp = {
   'neovim/nvim-lspconfig',
   cond = not vim.api.nvim_win_get_option(0, 'diff'), -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
-  dependencies = {
-    {
-      'hrsh7th/cmp-nvim-lsp',
-    },
-  },
 }
 
 function lsp.config()
@@ -120,24 +115,6 @@ function lsp.config()
   })
 
   ----------
-
-  local lspconfig = require 'lspconfig'
-  local cmp_nvim_lsp = require 'cmp_nvim_lsp'
-
-  -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-  local capabilities = cmp_nvim_lsp.default_capabilities()
-  for _, server in pairs(require('commons').servers) do
-    local opts = {
-      capabilities = capabilities,
-    }
-
-    local require_ok, settings = pcall(require, 'settings.' .. server)
-    if require_ok then
-      opts = vim.tbl_deep_extend('force', settings, opts)
-    end
-
-    lspconfig[server].setup(opts)
-  end
 
   local signs = {
     { name = 'DiagnosticSignError', text = '' },

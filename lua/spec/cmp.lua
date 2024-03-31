@@ -2,6 +2,9 @@ local completion = {
   'hrsh7th/nvim-cmp',
   dependencies = {
     {
+      'neovim/nvim-lspconfig',
+    },
+    {
       'hrsh7th/cmp-nvim-lsp',
     },
     {
@@ -19,7 +22,9 @@ local completion = {
     {
       'L3MON4D3/LuaSnip',
       -- follow latest release.
-      version = '1.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+      version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+      -- install jsregexp (optional!).
+      build = 'make install_jsregexp',
       dependencies = {
         'rafamadriz/friendly-snippets',
       },
@@ -34,6 +39,7 @@ function completion.config()
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
 
+  -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
   require('luasnip.loaders.from_vscode').lazy_load()
 
   local has_words_before = function()
@@ -47,41 +53,44 @@ function completion.config()
         == nil
   end
 
+  -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
   local kind_icons = {
-    Text = '󰉿',
-    Method = 'm',
+    Text = '',
+    Method = '󰆧',
     Function = '󰊕',
-    Constructor = '',
-    Field = '',
-    Variable = '󰆧',
-    Class = '󰌗',
+    Constructor = '',
+    Field = '󰇽',
+    Variable = '󰂡',
+    Class = '󰠱',
     Interface = '',
     Module = '',
-    Property = '',
+    Property = '󰜢',
     Unit = '',
     Value = '󰎠',
     Enum = '',
     Keyword = '󰌋',
-    Snippet = '',
+    Snippet = '',
     Color = '󰏘',
     File = '󰈙',
     Reference = '',
     Folder = '󰉋',
     EnumMember = '',
-    Constant = '󰇽',
+    Constant = '󰏿',
     Struct = '',
     Event = '',
     Operator = '󰆕',
-    TypeParameter = '󰊄',
-    Codeium = '󰚩',
-    Copilot = '',
+    TypeParameter = '󰅲',
   }
 
   cmp.setup {
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
       end,
     },
     window = {
@@ -119,34 +128,69 @@ function completion.config()
         end
       end, { 'i', 's' }),
     },
+    -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
     formatting = {
-      fields = { 'kind', 'abbr', 'menu' },
       format = function(entry, vim_item)
-        vim_item.kind = kind_icons[vim_item.kind]
+        -- Kind icons
+        vim_item.kind =
+          string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+        -- Source
         vim_item.menu = ({
-          nvim_lsp = '[LSP]',
-          nvim_lua = '[LUA]',
-          luasnip = '[Luasnip]',
           buffer = '[Buffer]',
-          -- path = '[Path]',
-          -- emoji = '[Emoji]',
+          nvim_lsp = '[LSP]',
+          luasnip = '[LuaSnip]',
+          nvim_lua = '[Lua]',
+          latex_symbols = '[LaTeX]',
         })[entry.source.name]
         return vim_item
       end,
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'nvim_lua' },
+      -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
     }, {
       { name = 'buffer' },
-      -- { name = 'path' },
-      -- { name = 'emoji' },
     }),
     experimental = {
       ghost_text = true,
     },
   }
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' },
+    },
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' },
+    }, {
+      { name = 'cmdline' },
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false },
+  })
+
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  for _, server in pairs(require('commons').servers) do
+    local opts = {
+      capabilities = capabilities,
+    }
+
+    local require_ok, settings = pcall(require, 'settings.' .. server)
+    if require_ok then
+      opts = vim.tbl_deep_extend('force', settings, opts)
+    end
+
+    require('lspconfig')[server].setup(opts)
+  end
 end
 
 return completion
