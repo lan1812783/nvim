@@ -17,6 +17,7 @@ local completion = {
       'saadparwaiz1/cmp_luasnip',
     },
     {
+      -- https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#install
       'L3MON4D3/LuaSnip',
       -- follow latest release.
       version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
