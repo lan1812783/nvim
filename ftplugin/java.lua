@@ -1,5 +1,5 @@
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
-local jdtls_dir = vim.fn.expand '~/.local/share/nvim/mason/packages/jdtls'
+local jdtls_dir = vim.fn.expand '$MASON/packages/jdtls'
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 -- Must point to the
 -- eclipse.jdt.ls installation
@@ -28,6 +28,7 @@ local config = {
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
+    '-javaagent:' .. vim.fn.expand '$MASON/share/jdtls/lombok.jar',
     '-jar',
     vim.fn.glob(jdtls_dir .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
 

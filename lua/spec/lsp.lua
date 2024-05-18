@@ -11,12 +11,9 @@ local lsp = {
 function lsp.config()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  vim.keymap.set(
-    'n',
-    '<leader>d',
-    vim.diagnostic.open_float,
-    { desc = 'LSP: diagnostic' }
-  )
+  vim.keymap.set('n', '<leader>d', function()
+    vim.diagnostic.open_float { focusable = true }
+  end, { desc = 'LSP: diagnostic' })
   vim.keymap.set(
     'n',
     '[d',

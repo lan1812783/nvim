@@ -34,11 +34,14 @@ local options = {
   numberwidth = 4, -- minimal number of columns to use for the line number {default 4}
   signcolumn = 'yes', -- always show the sign column, otherwise it would shift the text each time
   wrap = true, -- display lines as one long line
+  linebreak = true, -- wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen
   scrolloff = 8, -- minimal number of screen lines to keep above and below the cursor
-  sidescrolloff = 8, -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
+  -- sidescrolloff = 8, -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
   guifont = 'monospace:h17', -- the font used in graphical neovim applications
   -- guicursor = 'a:block', -- all modes use the same block cursor (default: n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20)
   colorcolumn = '80', -- ruler
+  spell = true, -- spell checking
+  spelllang = 'en_us', -- comma-separated list of word list names.  When the 'spell' option is on spellchecking will be done for these languages
 }
 
 for k, v in pairs(options) do
@@ -50,4 +53,3 @@ vim.opt.shortmess:append 'c' -- hide all the completion messages, e.g. '-- XXX c
 vim.opt.whichwrap:append '<,>,[,],h,l' -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 vim.opt.iskeyword:append '-' -- treats words with `-` as single words
 vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- This is a sequence of letters which describes how automatic formatting is to be done
-vim.opt.linebreak = true
