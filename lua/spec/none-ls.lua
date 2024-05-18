@@ -3,6 +3,7 @@ local nonels = {
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
+      'nvimtools/none-ls-extras.nvim',
     },
   },
   config = function()
@@ -18,7 +19,7 @@ local nonels = {
         null_ls.builtins.formatting.google_java_format,
         null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint_d,
+        require 'none-ls.diagnostics.eslint_d',
       },
       -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)

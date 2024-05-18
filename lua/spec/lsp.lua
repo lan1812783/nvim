@@ -11,21 +11,9 @@ local lsp = {
 function lsp.config()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  vim.keymap.set('n', '<leader>d', function()
-    vim.diagnostic.open_float { focusable = true }
+  vim.keymap.set('n', '<C-W>d', function()
+    vim.diagnostic.open_float { focusable = true } -- focus isn't allow by default
   end, { desc = 'LSP: diagnostic' })
-  vim.keymap.set(
-    'n',
-    '[d',
-    vim.diagnostic.goto_prev,
-    { desc = 'LSP: jump to previous diagnostic' }
-  )
-  vim.keymap.set(
-    'n',
-    ']d',
-    vim.diagnostic.goto_next,
-    { desc = 'LSP: jump to next diagnostic' }
-  )
   vim.keymap.set(
     'n',
     '<leader>q',
@@ -58,7 +46,6 @@ function lsp.config()
         vim.lsp.buf.definition,
         getOpts 'LSP: go to definiiion'
       )
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, getOpts 'LSP: hover')
       vim.keymap.set(
         'n',
         'gi',
@@ -113,6 +100,12 @@ function lsp.config()
       vim.keymap.set('n', '<leader>f', function()
         vim.lsp.buf.format { async = true }
       end, getOpts 'LSP: format buffer')
+
+      -- https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
+      vim.lsp.inlay_hint.enable(true)
+      vim.keymap.set('n', 'H', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end)
     end,
   })
 

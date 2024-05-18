@@ -3,6 +3,7 @@ local dapui = {
   dependencies = {
     {
       'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio',
     },
   },
   config = function()
@@ -19,6 +20,10 @@ local dapui = {
     dap.listeners.before.event_exited['dapui_config'] = function()
       dapui.close()
     end
+
+    vim.keymap.set({ 'n', 'v' }, '<M-e>', function()
+      require('dapui').eval()
+    end, { desc = 'DAP: evaluate expression' })
 
     dap.adapters.codelldb = {
       type = 'server',

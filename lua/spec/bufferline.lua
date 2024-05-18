@@ -1,6 +1,6 @@
 local bufferline = {
   'akinsho/bufferline.nvim',
-  version = '*',
+  -- version = '*', -- https://github.com/akinsho/bufferline.nvim/issues/903#issuecomment-2116061574
   dependencies = {
     {
       'nvim-tree/nvim-web-devicons',

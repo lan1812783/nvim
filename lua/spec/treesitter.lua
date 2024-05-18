@@ -26,8 +26,6 @@ function treesitter.config()
       'cpp',
       'go',
       'java',
-      'python',
-      'bash',
       'yaml',
     },
 
