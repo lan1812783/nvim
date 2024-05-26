@@ -53,3 +53,16 @@ vim.opt.shortmess:append 'c' -- hide all the completion messages, e.g. '-- XXX c
 vim.opt.whichwrap:append '<,>,[,],h,l' -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 vim.opt.iskeyword:append '-' -- treats words with `-` as single words
 vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- This is a sequence of letters which describes how automatic formatting is to be done
+
+-- Mitigate high loading time on big file
+-- Tests with value 0 show that these do not take affect, so choose value 1
+vim.g.matchparen_timeout = 1 -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L15
+vim.g.matchparen_insert_timeout = 1 -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L18
+
+-- Capture the diff mode flag globally because tests show that
+-- when nvim is open in diff mode (e.g. via git difftool, nvim -d, etc),
+-- a ftplugin script is called as many times as the number of buffers opened for diff viewing,
+-- and it seems like vim.api.nvim_win_get_option(0, 'diff') returns true
+-- only on the first time a ftplugin script is called, subsequent calls result in false to be returned,
+-- which makes this api not appropriate to be used in ftplugin scripts when nvim is in diff mode
+vim.g.diffmode = vim.api.nvim_win_get_option(0, 'diff')

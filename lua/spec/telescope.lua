@@ -9,6 +9,12 @@ local telescope = {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     },
+    {
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      -- This will not install any breaking changes.
+      -- For major updates, this must be adjusted manually.
+      version = '^1.0.0',
+    },
   },
 }
 
@@ -23,7 +29,7 @@ function telescope.config()
   vim.keymap.set(
     'n',
     '<leader>fg',
-    builtin.live_grep,
+    ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
     { desc = 'Telescope: live grep' }
   )
   vim.keymap.set(
@@ -40,13 +46,27 @@ function telescope.config()
   )
 
   local tls = require 'telescope'
-  tls.load_extension 'fzf'
+
   tls.setup {
     defaults = {
       file_ignore_patterns = {
         '.git/', -- the slash '/' at the end make sure that only the files inside .git folder are ignored, not the .gitignore, .gitlab-ci.yml, etc which start by '.git' in their names
         'node_modules',
         '__pycache__',
+      },
+      multi_icon = ' ',
+      prompt_prefix = ' ',
+      selection_caret = '󱞪 ',
+      mappings = {
+        n = {
+          ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+        },
+        i = {
+          ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+        },
+      },
+      preview = {
+        hide_on_startup = true,
       },
     },
     pickers = {
@@ -56,6 +76,10 @@ function telescope.config()
       },
     },
   }
+
+  -- Load extensions after calling setup function
+  tls.load_extension 'fzf'
+  tls.load_extension 'live_grep_args'
 end
 
 return telescope

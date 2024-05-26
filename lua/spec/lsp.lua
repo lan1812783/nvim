@@ -1,6 +1,6 @@
 local lsp = {
   'neovim/nvim-lspconfig',
-  cond = not vim.api.nvim_win_get_option(0, 'diff'), -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
+  cond = not vim.g.diffmode, -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
   dependencies = {
     {
       'hrsh7th/cmp-nvim-lsp',
@@ -101,8 +101,10 @@ function lsp.config()
         vim.lsp.buf.format { async = true }
       end, getOpts 'LSP: format buffer')
 
+      -- Mitigate high loading time on big file
+      local isBufSizeBig = require('commons').utils.isBufSizeBig
       -- https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
-      vim.lsp.inlay_hint.enable(true)
+      vim.lsp.inlay_hint.enable(not isBufSizeBig(ev.buf))
       vim.keymap.set('n', 'H', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end)

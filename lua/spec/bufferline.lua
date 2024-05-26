@@ -1,6 +1,6 @@
 local bufferline = {
   'akinsho/bufferline.nvim',
-  -- version = '*', -- https://github.com/akinsho/bufferline.nvim/issues/903#issuecomment-2116061574
+  version = '*',
   dependencies = {
     {
       'nvim-tree/nvim-web-devicons',
@@ -26,19 +26,19 @@ function bufferline.config()
           local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
 
           if error ~= 0 then
-            table.insert(result, { text = '  ' .. error, fg = '#EC5241' })
+            table.insert(result, { text = '  ' .. error, fg = '#EC5241' })
           end
 
           if warning ~= 0 then
-            table.insert(result, { text = '  ' .. warning, fg = '#EFB839' })
+            table.insert(result, { text = '  ' .. warning, fg = '#EFB839' })
           end
 
           if hint ~= 0 then
-            table.insert(result, { text = '  ' .. hint, fg = '#A3BA5E' })
+            table.insert(result, { text = '  ' .. hint, fg = '#A3BA5E' })
           end
 
           if info ~= 0 then
-            table.insert(result, { text = '  ' .. info, fg = '#7EA9A7' })
+            table.insert(result, { text = '  ' .. info, fg = '#7EA9A7' })
           end
           return result
         end,
@@ -53,7 +53,7 @@ function bufferline.config()
         local s = ' '
         for e, n in pairs(diagnostics_dict) do
           local sym = e == 'error' and ' '
-            or (e == 'warning' and ' ' or '')
+              or (e == 'warning' and ' ' or '')
           s = s .. n .. sym
         end
         return s
@@ -61,8 +61,8 @@ function bufferline.config()
       -- indicator = {
       --   style = 'underline',
       -- },
-      numbers = 'both', -- ordinal & buffer_id
-      separator_style = 'slant',
+      numbers = 'buffer_id', -- ordinal & buffer_id
+      separator_style = 'thick',
       offsets = {
         {
           filetype = 'NvimTree',

@@ -1,3 +1,7 @@
+if vim.g.diffmode then
+  return
+end
+
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local jdtls_dir = vim.fn.expand '$MASON/packages/jdtls'
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -48,12 +52,10 @@ local config = {
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
   -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = require('jdtls.setup').find_root {
-    '.git',
-    'pom.xml',
-    'mvnw',
-    'gradlew',
-  },
+  --
+  -- vim.fs.root requires Neovim 0.10.
+  -- If you're using an earlier version, use: require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+  root_dir = vim.fs.root(0, { '.git', 'pom.xml', 'mvnw', 'gradlew' }),
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request

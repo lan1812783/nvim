@@ -52,10 +52,13 @@ function treesitter.config()
       -- disable = { 'c', 'rust' },
       -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
       disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats =
           pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
+        if
+          ok
+          and stats
+          and stats.size > require('commons').constants.big_file_size
+        then
           return true
         end
       end,
@@ -85,8 +88,22 @@ function treesitter.config()
     },
   }
 
-  vim.opt.foldmethod = 'expr'
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+  -- Mitigate high loading time on big file
+  -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1100#issuecomment-1762594005
+  local isBufSizeBig = require('commons').utils.isBufSizeBig
+  vim.api.nvim_create_autocmd('BufReadPre', {
+    callback = function()
+      if isBufSizeBig(0) then
+        -- Although 'manual' is the default fold method,
+        -- not explicitly setting this still causes high loading time on big file,
+        -- maybe fold method has been implicitly set somewhere else prior to this
+        vim.opt.foldmethod = 'manual'
+      else
+        vim.opt.foldmethod = 'expr'
+        vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      end
+    end,
+  })
   vim.opt.foldenable = false -- Disable folding at startup.
 end
 
