@@ -65,4 +65,4 @@ vim.g.matchparen_insert_timeout = 1 -- https://github.com/neovim/neovim/blob/mas
 -- and it seems like vim.opt.diff returns true only on the first time a ftplugin script is called,
 -- subsequent calls result in false to be returned, which makes this api not appropriate
 -- to be used in ftplugin scripts when nvim is in diff mode
-vim.g.diffmode = vim.opt.diff
+vim.g.diffmode = vim.opt.diff:get()
