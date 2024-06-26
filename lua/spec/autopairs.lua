@@ -1,4 +1,4 @@
-local autopairs = {
+local M = {
   'windwp/nvim-autopairs',
   event = 'InsertEnter',
   dependencies = {
@@ -20,4 +20,4 @@ local autopairs = {
   -- this is equalent to setup({}) function
 }
 
-return autopairs
+return M

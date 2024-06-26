@@ -1,4 +1,4 @@
-local trouble = {
+local M = {
   'folke/trouble.nvim',
   keys = {
     {
@@ -35,4 +35,4 @@ local trouble = {
   opts = {}, -- for default options, refer to the configuration section for custom setup.
 }
 
-return trouble
+return M

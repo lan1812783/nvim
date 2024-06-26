@@ -1,4 +1,4 @@
-local nonels = {
+local M = {
   'nvimtools/none-ls.nvim',
   dependencies = {
     {
@@ -40,4 +40,4 @@ local nonels = {
   end,
 }
 
-return nonels
+return M

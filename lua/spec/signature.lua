@@ -1,4 +1,4 @@
-local signature = {
+local M = {
   'ray-x/lsp_signature.nvim',
   event = 'VeryLazy',
   opts = {},
@@ -12,4 +12,4 @@ local signature = {
   end,
 }
 
-return signature
+return M

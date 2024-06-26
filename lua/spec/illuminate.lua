@@ -1,4 +1,4 @@
-local vimIlluminate = {
+local M = {
   'RRethy/vim-illuminate',
   config = function()
     require('illuminate').configure {
@@ -7,4 +7,4 @@ local vimIlluminate = {
   end,
 }
 
-return vimIlluminate
+return M

@@ -1,4 +1,4 @@
-local whichKey = {
+local M = {
   'folke/which-key.nvim',
   event = 'VeryLazy',
   init = function()
@@ -12,8 +12,4 @@ local whichKey = {
   },
 }
 
-function whichKey.config()
-  require('which-key').setup {}
-end
-
-return whichKey
+return M

@@ -1,4 +1,4 @@
-local mason = {
+local M = {
   'williamboman/mason.nvim',
   build = ':MasonUpdate',
   dependencies = {
@@ -7,24 +7,23 @@ local mason = {
       lazy = true,
     },
   },
+  config = function()
+    local settings = {
+      ui = {
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
+      },
+    }
+
+    require('mason').setup(settings)
+    require('mason-lspconfig').setup {
+      ensure_installed = require('commons').servers,
+      automatic_installation = true,
+    }
+  end,
 }
 
-function mason.config()
-  local settings = {
-    ui = {
-      icons = {
-        package_installed = '✓',
-        package_pending = '➜',
-        package_uninstalled = '✗',
-      },
-    },
-  }
-
-  require('mason').setup(settings)
-  require('mason-lspconfig').setup {
-    ensure_installed = require('commons').servers,
-    automatic_installation = true,
-  }
-end
-
-return mason
+return M

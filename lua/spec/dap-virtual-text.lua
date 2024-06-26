@@ -1,14 +1,17 @@
-local dapvirtxt = {
+local M = {
   'theHamsta/nvim-dap-virtual-text',
   dependencies = {
     {
       'mfussenegger/nvim-dap',
-      'nvim-treesitter/nvim-treesitter',
+      {
+        'nvim-treesitter/nvim-treesitter',
+        build = function()
+          require('nvim-treesitter.install').update { with_sync = true } ()
+        end,
+      },
     },
   },
-  config = function()
-    require('nvim-dap-virtual-text').setup()
-  end,
+  opts = {},
 }
 
-return dapvirtxt
+return M

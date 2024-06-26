@@ -1,4 +1,4 @@
-local dapui = {
+local M = {
   'rcarriga/nvim-dap-ui',
   dependencies = {
     {
@@ -132,23 +132,24 @@ local dapui = {
       'DapStopped',
       { ctermbg = 0, fg = '#98c379', bg = '#31353f' }
     )
+    vim.api.nvim_set_hl(0, 'DapLine', { ctermbg = 0, bg = '#31353f' })
 
     vim.fn.sign_define('DapBreakpoint', {
       text = '',
       texthl = 'DapBreakpoint',
-      linehl = 'DapBreakpoint',
+      linehl = 'DapLine',
       numhl = 'DapBreakpoint',
     })
     vim.fn.sign_define('DapBreakpointCondition', {
       text = '',
       texthl = 'DapBreakpoint',
-      linehl = 'DapBreakpoint',
+      linehl = 'DapLine',
       numhl = 'DapBreakpoint',
     })
     vim.fn.sign_define('DapLogPoint', {
       text = '󰜋',
       texthl = 'DapLogPoint',
-      linehl = 'DapLogPoint',
+      linehl = 'DapLine',
       numhl = 'DapLogPoint',
     })
     vim.fn.sign_define('DapStopped', {
@@ -166,4 +167,4 @@ local dapui = {
   end,
 }
 
-return dapui
+return M

@@ -1,8 +1,6 @@
-local commons = {}
-
-commons = {
+local M = {
   constants = {
-    big_file_size = 100 * 1024, -- 100 KB
+    big_file_size = 10 * 1024, -- 10 KB
   },
   utils = {
     map = function(mode, lhs, rhs, opts)
@@ -11,10 +9,6 @@ commons = {
         options = vim.tbl_extend('force', options, opts)
       end
       vim.keymap.set(mode, lhs, rhs, options)
-    end,
-    isBufSizeBig = function(buf)
-      local ok, size = pcall(vim.fn.getfsize, vim.api.nvim_buf_get_name(buf))
-      return ok and size > commons.constants.big_file_size
     end,
   },
   servers = {
@@ -30,4 +24,9 @@ commons = {
   },
 }
 
-return commons
+function M.utils.isBufSizeBig(buf)
+  local ok, size = pcall(vim.fn.getfsize, vim.api.nvim_buf_get_name(buf))
+  return ok and size > M.constants.big_file_size
+end
+
+return M

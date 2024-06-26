@@ -1,5 +1,5 @@
-local treesitterContext = {
+local M = {
   'nvim-treesitter/nvim-treesitter-context',
 }
 
-return treesitterContext
+return M

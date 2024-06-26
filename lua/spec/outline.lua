@@ -1,4 +1,4 @@
-local outline = {
+local M = {
   'hedyhli/outline.nvim',
   config = function()
     -- Example mapping to toggle outline
@@ -19,4 +19,4 @@ local outline = {
   end,
 }
 
-return outline
+return M

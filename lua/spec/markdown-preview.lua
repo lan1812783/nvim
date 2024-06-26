@@ -1,4 +1,4 @@
-local markdownPreview = {
+local M = {
   'iamcco/markdown-preview.nvim',
   cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
   ft = { 'markdown' },
@@ -7,4 +7,4 @@ local markdownPreview = {
   end,
 }
 
-return markdownPreview
+return M

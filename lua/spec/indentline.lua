@@ -1,7 +1,5 @@
-local ibl = {
+local M = {
   'lukas-reineke/indent-blankline.nvim',
-  main = 'ibl',
-  opts = {},
   config = function()
     local highlight = {
       'RainbowRed',
@@ -30,4 +28,4 @@ local ibl = {
   end,
 }
 
-return ibl
+return M
