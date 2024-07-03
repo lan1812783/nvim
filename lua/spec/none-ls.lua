@@ -17,7 +17,9 @@ local M = {
         },
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.google_java_format,
-        null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.prettierd.with {
+          extra_args = { '--single-quote=true' },
+        },
         null_ls.builtins.formatting.stylua,
         require 'none-ls.diagnostics.eslint_d',
       },

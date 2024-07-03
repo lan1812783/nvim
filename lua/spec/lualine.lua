@@ -3,7 +3,15 @@ local M = {
   dependencies = { 'nvim-tree/nvim-web-devicons', opt = true },
   config = function()
     require('lualine').setup {
-      extensions = { 'lazy', 'nvim-dap-ui', 'nvim-tree', 'toggleterm' }, -- extensions 'mason' causes errors
+      extensions = {
+        'lazy',
+        'mason',
+        'nvim-dap-ui',
+        'nvim-tree',
+        'quickfix',
+        'toggleterm',
+        'trouble',
+      },
     }
   end,
 }
