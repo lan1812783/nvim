@@ -2,6 +2,8 @@ if vim.g.diffmode then
   return
 end
 
+vim.cmd 'setlocal colorcolumn=100'
+
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local jdtls_dir = vim.fn.expand '$MASON/packages/jdtls'
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

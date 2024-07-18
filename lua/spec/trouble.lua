@@ -1,5 +1,13 @@
 local M = {
   'folke/trouble.nvim',
+  opts = {
+    win = {
+      wo = {
+        colorcolumn = '',
+      },
+    },
+  }, -- for default options, refer to the configuration section for custom setup.
+  cmd = 'Trouble',
   keys = {
     {
       '<leader>xx',
@@ -32,7 +40,6 @@ local M = {
       desc = 'Quickfix List (Trouble)',
     },
   },
-  opts = {}, -- for default options, refer to the configuration section for custom setup.
 }
 
 return M
