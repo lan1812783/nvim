@@ -1,4 +1,4 @@
-local dapgo = {
+local M = {
   'leoluz/nvim-dap-go',
   dependencies = {
     {
@@ -10,4 +10,4 @@ local dapgo = {
   end,
 }
 
-return dapgo
+return M

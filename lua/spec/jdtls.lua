@@ -1,5 +1,5 @@
-local jdtls = {
+local M = {
   'mfussenegger/nvim-jdtls',
 }
 
-return jdtls
+return M

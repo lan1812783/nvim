@@ -1,5 +1,11 @@
+if vim.g.diffmode then
+  return
+end
+
+vim.cmd 'setlocal colorcolumn=100'
+
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
-local jdtls_dir = vim.fn.expand '~/.local/share/nvim/mason/packages/jdtls'
+local jdtls_dir = vim.fn.expand '$MASON/packages/jdtls'
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 -- Must point to the
 -- eclipse.jdt.ls installation
@@ -14,7 +20,7 @@ local config = {
   cmd = {
 
     -- 💀
-    '~/.sdkman/candidates/java/17.0.10-tem/bin/java', -- or '/path/to/java17_or_newer/bin/java'
+    os.getenv 'HOME' .. '/.sdkman/candidates/java/17.0.10-tem/bin/java', -- or '/path/to/java17_or_newer/bin/java'
     -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -28,6 +34,7 @@ local config = {
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
+    '-javaagent:' .. vim.fn.expand '$MASON/share/jdtls/lombok.jar',
     '-jar',
     vim.fn.glob(jdtls_dir .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
 
@@ -47,12 +54,10 @@ local config = {
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
   -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = require('jdtls.setup').find_root {
-    '.git',
-    'pom.xml',
-    'mvnw',
-    'gradlew',
-  },
+  --
+  -- vim.fs.root requires Neovim 0.10.
+  -- If you're using an earlier version, use: require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
+  root_dir = vim.fs.root(0, { '.git', 'pom.xml', 'mvnw', 'gradlew' }),
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request

@@ -1,8 +1,9 @@
-local dapui = {
+local M = {
   'rcarriga/nvim-dap-ui',
   dependencies = {
     {
       'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio',
     },
   },
   config = function()
@@ -20,6 +21,10 @@ local dapui = {
       dapui.close()
     end
 
+    vim.keymap.set({ 'n', 'v' }, '<M-e>', function()
+      require('dapui').eval()
+    end, { desc = 'DAP: evaluate expression' })
+
     dap.adapters.codelldb = {
       type = 'server',
       port = '${port}',
@@ -36,15 +41,12 @@ local dapui = {
         request = 'launch',
         program = function()
           local path
-          vim.ui.input(
-            {
-              prompt = 'Path to executable: ',
-              default = vim.loop.cwd() .. '/build/',
-            },
-            function(input)
-              path = input
-            end
-          )
+          vim.ui.input({
+            prompt = 'Path to executable: ',
+            default = vim.loop.cwd() .. '/build/',
+          }, function(input)
+            path = input
+          end)
           vim.cmd [[redraw]]
           return path
         end,
@@ -118,7 +120,7 @@ local dapui = {
     vim.api.nvim_set_hl(
       0,
       'DapBreakpoint',
-      { ctermbg = 0, fg = '#993939', bg = '#31353f' }
+      { ctermbg = 0, fg = '#ab4444', bg = '#31353f' }
     )
     vim.api.nvim_set_hl(
       0,
@@ -130,53 +132,39 @@ local dapui = {
       'DapStopped',
       { ctermbg = 0, fg = '#98c379', bg = '#31353f' }
     )
+    vim.api.nvim_set_hl(0, 'DapLine', { ctermbg = 0, bg = '#31353f' })
 
-    vim.fn.sign_define(
-      'DapBreakpoint',
-      {
-        text = '',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint',
-      }
-    )
-    vim.fn.sign_define(
-      'DapBreakpointCondition',
-      {
-        text = '',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint',
-      }
-    )
-    vim.fn.sign_define(
-      'DapLogPoint',
-      {
-        text = '󰜋',
-        texthl = 'DapLogPoint',
-        linehl = 'DapLogPoint',
-        numhl = 'DapLogPoint',
-      }
-    )
-    vim.fn.sign_define(
-      'DapStopped',
-      {
-        text = '',
-        texthl = 'DapStopped',
-        linehl = 'DapStopped',
-        numhl = 'DapStopped',
-      }
-    )
-    vim.fn.sign_define(
-      'DapBreakpointRejected',
-      {
-        text = '',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint',
-      }
-    )
+    vim.fn.sign_define('DapBreakpoint', {
+      text = '',
+      texthl = 'DapBreakpoint',
+      linehl = 'DapLine',
+      numhl = 'DapBreakpoint',
+    })
+    vim.fn.sign_define('DapBreakpointCondition', {
+      text = '',
+      texthl = 'DapBreakpoint',
+      linehl = 'DapLine',
+      numhl = 'DapBreakpoint',
+    })
+    vim.fn.sign_define('DapLogPoint', {
+      text = '󰜋',
+      texthl = 'DapLogPoint',
+      linehl = 'DapLine',
+      numhl = 'DapLogPoint',
+    })
+    vim.fn.sign_define('DapStopped', {
+      text = '',
+      texthl = 'DapStopped',
+      linehl = 'DapStopped',
+      numhl = 'DapStopped',
+    })
+    vim.fn.sign_define('DapBreakpointRejected', {
+      text = '',
+      texthl = 'DapBreakpoint',
+      linehl = 'DapBreakpoint',
+      numhl = 'DapBreakpoint',
+    })
   end,
 }
 
-return dapui
+return M
