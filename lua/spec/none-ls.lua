@@ -22,6 +22,10 @@ local M = {
         },
         null_ls.builtins.formatting.stylua,
         require 'none-ls.diagnostics.eslint_d',
+        -- Python
+        null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.formatting.isort,
+        null_ls.builtins.formatting.black,
       },
       -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)

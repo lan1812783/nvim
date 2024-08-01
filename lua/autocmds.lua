@@ -4,3 +4,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank { timeout = 150 }
   end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'qf', 'help' },
+  callback = function()
+    vim.opt_local.colorcolumn = ''
+  end,
+})

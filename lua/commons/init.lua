@@ -1,6 +1,6 @@
 local M = {
   constants = {
-    big_file_size = 10 * 1024, -- 10 KB
+    big_file_size = 50 * 1024, -- 50 KB
   },
   utils = {
     map = function(mode, lhs, rhs, opts)
@@ -21,6 +21,7 @@ local M = {
     'gopls',
     'bashls',
     'yamlls',
+    'pyright',
   },
 }
 
