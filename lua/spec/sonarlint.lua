@@ -1,9 +1,9 @@
 local M = {
-  url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim',
+  url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim.git',
   dependencies = {
     'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',
-    'mfussenegger/nvim-jdtls',
+    'lewis6991/gitsigns.nvim',
   },
   config = function()
     require('sonarlint').setup {

@@ -22,6 +22,15 @@ local M = {
       git = {
         ignore = false,
       },
+      renderer = {
+        indent_markers = {
+          enable = true,
+        },
+      },
+      view = {
+        number = true,
+        relativenumber = true,
+      },
     }
 
     local map = require('commons').utils.map

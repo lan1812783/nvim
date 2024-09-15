@@ -164,6 +164,13 @@ local M = {
       linehl = 'DapBreakpoint',
       numhl = 'DapBreakpoint',
     })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'dap-repl' },
+      callback = function()
+        vim.opt_local.colorcolumn = ''
+      end,
+    })
   end,
 }
 

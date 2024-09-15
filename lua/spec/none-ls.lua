@@ -1,5 +1,6 @@
 local M = {
   'nvimtools/none-ls.nvim',
+  cond = not vim.g.diffmode,
   dependencies = {
     {
       'nvim-lua/plenary.nvim',

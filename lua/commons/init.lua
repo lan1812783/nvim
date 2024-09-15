@@ -15,13 +15,14 @@ local M = {
     'lua_ls',
     'html',
     'cssls',
-    'tsserver',
+    'ts_ls',
     -- 'jdtls', -- allow only nvim-jdtls to start the client (https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#nvim-lspconfig-and-nvim-jdtls-differences)
     'clangd',
     'gopls',
     'bashls',
     'yamlls',
     'pyright',
+    'ltex',
   },
 }
 
