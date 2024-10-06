@@ -32,7 +32,6 @@ local M = {
         'nvim-tree',
         'quickfix',
         'symbols-outline',
-        'toggleterm',
         'trouble',
       },
       winbar = winbar,
