@@ -10,7 +10,7 @@ local M = {
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     vim.keymap.set('n', '<C-W>d', function()
-      vim.diagnostic.open_float { focusable = true } -- focus isn't allow by default
+      vim.diagnostic.open_float { focusable = true } -- focus isn't allowed by default
     end, { desc = 'LSP: diagnostic' })
     vim.keymap.set(
       'n',
@@ -19,18 +19,10 @@ local M = {
       { desc = 'LSP: add buffer diagnostics to the location list' }
     )
 
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-      callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
+      callback = function(args)
         local function getOpts(desc)
-          return { buffer = ev.buf, desc = desc }
+          return { buffer = args.buf, desc = desc }
         end
         vim.keymap.set(
           'n',
@@ -102,10 +94,10 @@ local M = {
         -- Mitigate high loading time on big file
         local isBufSizeBig = require('commons').utils.isBufSizeBig
         -- https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
-        vim.lsp.inlay_hint.enable(not isBufSizeBig(ev.buf))
+        vim.lsp.inlay_hint.enable(not isBufSizeBig(args.buf))
         vim.keymap.set('n', 'H', function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end)
+        end, { desc = 'LSP: toggle inlay hint' })
       end,
     })
 
@@ -127,38 +119,22 @@ local M = {
       require('lspconfig')[server].setup(opts)
     end
 
-    local signs = {
-      { name = 'DiagnosticSignError', text = '' },
-      { name = 'DiagnosticSignWarn', text = '' },
-      { name = 'DiagnosticSignHint', text = '' },
-      { name = 'DiagnosticSignInfo', text = '' },
-    }
-    for _, sign in ipairs(signs) do
-      vim.fn.sign_define(
-        sign.name,
-        { texthl = sign.name, text = sign.text, numhl = '' }
-      )
+    -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+    local signs =
+      { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+    for type, icon in pairs(signs) do
+      local hl = 'DiagnosticSign' .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
-    local config = {
-      -- virtual_text = false,
-      signs = {
-        active = signs,
-      },
+    vim.diagnostic.config {
       update_in_insert = true,
-      underline = true,
       severity_sort = true,
       float = {
-        focusable = false,
-        style = 'minimal',
         border = 'rounded',
-        source = 'always',
-        header = '',
-        prefix = '',
-        suffix = '',
+        source = true,
       },
     }
-    vim.diagnostic.config(config)
   end,
 }
 

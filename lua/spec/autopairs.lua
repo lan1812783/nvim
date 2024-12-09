@@ -17,7 +17,7 @@ local M = {
     npairs.setup()
   end,
   -- use opts = {} for passing setup options
-  -- this is equalent to setup({}) function
+  -- this is equivalent to setup({}) function
 }
 
 return M

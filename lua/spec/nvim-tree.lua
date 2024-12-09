@@ -19,9 +19,6 @@ local M = {
         enable = true,
         show_on_dirs = true,
       },
-      git = {
-        ignore = false,
-      },
       renderer = {
         indent_markers = {
           enable = true,
@@ -34,7 +31,7 @@ local M = {
     }
 
     local map = require('commons').utils.map
-    map('n', '<leader>e', ':NvimTreeToggle<CR>')
+    map('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle NvimTree' })
   end,
 }
 

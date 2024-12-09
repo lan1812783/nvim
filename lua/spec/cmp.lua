@@ -35,19 +35,8 @@ local M = {
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
 
-    -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
+    -- https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#add-snippets
     require('luasnip.loaders.from_vscode').lazy_load()
-
-    local has_words_before = function()
-      unpack = unpack or table.unpack
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0
-        and vim.api
-            .nvim_buf_get_lines(0, line - 1, line, true)[1]
-            :sub(col, col)
-            :match '%s'
-          == nil
-    end
 
     -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
     local kind_icons = {
@@ -104,12 +93,8 @@ local M = {
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-            -- they way you will only jump inside the snippet region
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
+          elseif luasnip.locally_jumpable(1) then
+            luasnip.jump(1)
           else
             fallback()
           end
@@ -117,7 +102,7 @@ local M = {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
+          elseif luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           else
             fallback()
@@ -147,6 +132,8 @@ local M = {
         { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
+        { name = 'nvim_lua' }, -- https://github.com/hrsh7th/cmp-nvim-lua?tab=readme-ov-file#setup
+        { name = 'lazydev', group_index = 0 }, -- set group index to 0 to skip loading LuaLS completions, https://github.com/folke/lazydev.nvim?tab=readme-ov-file#-installation
       }, {
         { name = 'buffer' },
       }),
