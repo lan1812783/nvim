@@ -1,5 +1,6 @@
 local M = {
   'nvimtools/none-ls.nvim',
+  cond = not vim.g.diffmode,
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
@@ -22,6 +23,12 @@ local M = {
         },
         null_ls.builtins.formatting.stylua,
         require 'none-ls.diagnostics.eslint_d',
+        -- Python
+        null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.formatting.isort,
+        null_ls.builtins.formatting.black.with {
+          extra_args = { '--line-length=80', '--skip-string-normalization' },
+        },
       },
       -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)

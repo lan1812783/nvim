@@ -1,6 +1,7 @@
 local M = {
   'folke/trouble.nvim',
   opts = {
+    focus = true,
     win = {
       wo = {
         colorcolumn = '',

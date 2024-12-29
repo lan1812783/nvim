@@ -24,22 +24,31 @@ local M = {
             local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
 
             if error ~= 0 then
-              table.insert(result, { text = '  ' .. error, fg = '#EC5241' })
+              table.insert(
+                result,
+                { text = '  ' .. error, link = 'DiagnosticError' }
+              )
             end
 
             if warning ~= 0 then
               table.insert(
                 result,
-                { text = '  ' .. warning, fg = '#EFB839' }
+                { text = '  ' .. warning, link = 'DiagnosticWarn' }
               )
             end
 
             if hint ~= 0 then
-              table.insert(result, { text = '  ' .. hint, fg = '#A3BA5E' })
+              table.insert(
+                result,
+                { text = '  ' .. hint, link = 'DiagnosticHint' }
+              )
             end
 
             if info ~= 0 then
-              table.insert(result, { text = '  ' .. info, fg = '#7EA9A7' })
+              table.insert(
+                result,
+                { text = '  ' .. info, link = 'DiagnosticInfo' }
+              )
             end
             return result
           end,
@@ -59,7 +68,7 @@ local M = {
           local s = ' '
           for e, n in pairs(diagnostics_dict) do
             local sym = e == 'error' and ' '
-              or (e == 'warning' and ' ' or '')
+              or (e == 'warning' and ' ' or ' ')
             s = s .. n .. sym
           end
           return s

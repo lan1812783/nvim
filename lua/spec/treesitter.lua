@@ -1,26 +1,20 @@
 local M = {
   'nvim-treesitter/nvim-treesitter',
   build = function()
-    require('nvim-treesitter.install').update { with_sync = true } ()
+    require('nvim-treesitter.install').update { with_sync = true }()
   end,
-  dependencies = {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-  },
   config = function()
     local configs = require 'nvim-treesitter.configs'
 
     configs.setup {
       -- A list of parser names, or 'all' (the five listed parsers should always be installed)
       ensure_installed = {
-        'lua',
-        'vimdoc',
         'html',
         'css',
         'javascript',
         'tsx',
         'cmake',
         'make',
-        'c',
         'cpp',
         'go',
         'java',
@@ -28,11 +22,11 @@ local M = {
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)
-      sync_install = false,
+      -- sync_install = false,
 
       -- Automatically install missing parsers when entering buffer
       -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-      auto_install = false,
+      -- auto_install = true,
 
       -- List of parsers to ignore installing (or 'all')
       -- ignore_install = { 'javascript' },
@@ -65,24 +59,13 @@ local M = {
         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-
-        -- Enable nvim-ts-context-commentstring
-        context_commentstring = {
-          enable = true,
-        },
+        -- additional_vim_regex_highlighting = false,
       },
       incremental_selection = {
         enable = true,
-        keymaps = {
-          init_selection = 'gnn', -- set to `false` to disable one of the mappings
-          node_incremental = 'grn',
-          scope_incremental = 'grc',
-          node_decremental = 'grm',
-        },
-        indent = {
-          enable = true,
-        },
+      },
+      indent = {
+        enable = true,
       },
     }
 
