@@ -19,6 +19,9 @@ local M = {
         enable = true,
         show_on_dirs = true,
       },
+      filters = {
+        git_ignored = false,
+      },
       renderer = {
         indent_markers = {
           enable = true,
