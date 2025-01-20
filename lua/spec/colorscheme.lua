@@ -1,15 +1,18 @@
 local M = {
   'folke/tokyonight.nvim',
-  lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-  priority = 1000, -- make sure to load this before all the other start plugins
+  lazy = false,
+  priority = 1000,
   config = function()
     require('tokyonight').setup {
+      --- You can override specific color groups to use other groups or a hex color
+      --- function will be called with a ColorScheme table
+      ---@param colors ColorScheme
       on_colors = function(colors)
         colors.border = colors.dark5
       end,
     }
 
-    vim.cmd [[colorscheme tokyonight-night]]
+    vim.cmd [[colorscheme tokyonight]]
   end,
 }
 
