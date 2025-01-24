@@ -43,7 +43,7 @@ local M = {
           local path
           vim.ui.input({
             prompt = 'Path to executable: ',
-            default = vim.loop.cwd() .. '/build/',
+            default = vim.uv.cwd() .. '/build/',
           }, function(input)
             path = input
           end)

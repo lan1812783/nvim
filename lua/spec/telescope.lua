@@ -61,6 +61,8 @@ local M = {
           },
           i = {
             ['<C-p>'] = require('telescope.actions.layout').toggle_preview,
+            ['<C-Down>'] = require('telescope.actions').cycle_history_next,
+            ['<C-Up>'] = require('telescope.actions').cycle_history_prev,
           },
         },
         preview = {
@@ -70,7 +72,6 @@ local M = {
       pickers = {
         find_files = {
           hidden = true,
-          no_ignore = false, -- change to true to find ignored files also
         },
       },
     }

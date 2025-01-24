@@ -34,23 +34,20 @@ local M = {
       -- Actions
       map('n', '<leader>hs', gs.stage_hunk, { desc = 'Gitsigns: stage hunk' })
       map('n', '<leader>hr', gs.reset_hunk, { desc = 'Gitsigns: reset hunk' })
+
       map('v', '<leader>hs', function()
         gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
       end, { desc = 'Gitsigns: stage hunk' })
+
       map('v', '<leader>hr', function()
         gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
       end, { desc = 'Gitsigns: reset hunk' })
+
       map(
         'n',
         '<leader>hS',
         gs.stage_buffer,
         { desc = 'Gitsigns: stage buffer' }
-      )
-      map(
-        'n',
-        '<leader>hu',
-        gs.undo_stage_hunk,
-        { desc = 'Gitsigns: undo stage hunk' }
       )
       map(
         'n',
@@ -64,9 +61,38 @@ local M = {
         gs.preview_hunk,
         { desc = 'Gitsigns: preview hunk' }
       )
+      map(
+        'n',
+        '<leader>hi',
+        gs.preview_hunk_inline,
+        { desc = 'Gitsigns: preview hunk inline' }
+      )
+
       map('n', '<leader>hb', function()
         gs.blame_line { full = true }
       end, { desc = 'Gitsigns: blame line' })
+
+      map(
+        'n',
+        '<leader>hd',
+        gs.diffthis,
+        { desc = 'Gitsigns: diff against the index' }
+      )
+
+      map('n', '<leader>hD', function()
+        gs.diffthis '~'
+      end, { desc = 'Gitsigns: diff against the last commit' })
+
+      map('n', '<leader>hQ', function()
+        gs.setqflist 'all'
+      end, {
+        desc = "Gitsigns: open qf list populated with all modified files' hunks",
+      })
+      map('n', '<leader>hq', gs.setqflist, {
+        desc = "Gitsigns: open qf list populated with current file's hunks",
+      })
+
+      -- Toggles
       map(
         'n',
         '<leader>tb',
@@ -75,18 +101,9 @@ local M = {
       )
       map(
         'n',
-        '<leader>hd',
-        gs.diffthis,
-        { desc = 'Gitsigns: diff against the index' }
-      )
-      map('n', '<leader>hD', function()
-        gs.diffthis '~'
-      end, { desc = 'Gitsigns: diff against the last commit' })
-      map(
-        'n',
-        '<leader>td',
-        gs.toggle_deleted,
-        { desc = 'Gitsigns: toggle deleted' }
+        '<leader>tw',
+        gs.toggle_word_diff,
+        { desc = 'Gitsigns: toggle word diff' }
       )
 
       -- Text object

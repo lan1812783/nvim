@@ -29,4 +29,13 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
 -- Load lazy
-require('lazy').setup 'spec'
+require('lazy').setup {
+  spec = {
+    -- Import your plugins
+    { import = 'spec' },
+  },
+  change_detection = {
+    -- Automatically check for config file changes and reload the ui
+    enabled = false,
+  },
+}

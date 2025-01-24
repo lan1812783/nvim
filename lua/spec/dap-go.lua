@@ -5,9 +5,7 @@ local M = {
       'mfussenegger/nvim-dap',
     },
   },
-  config = function()
-    require('dap-go').setup()
-  end,
+  opts = {},
 }
 
 return M
