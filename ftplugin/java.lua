@@ -20,8 +20,8 @@ local config = {
   cmd = {
 
     -- 💀
-    os.getenv 'HOME' .. '/.sdkman/candidates/java/17.0.10-tem/bin/java', -- or '/path/to/java17_or_newer/bin/java'
-    -- depends on if `java` is in your $PATH env variable and if it points to the right version.
+    'java', -- or '/path/to/java21_or_newer/bin/java'
+            -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',

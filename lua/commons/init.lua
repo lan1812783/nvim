@@ -22,7 +22,7 @@ local M = {
     'bashls',
     'yamlls',
     'pyright',
-    'ltex',
+    'harper_ls',
   },
 }
 
