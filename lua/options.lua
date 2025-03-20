@@ -30,7 +30,6 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.opt.diffopt:append 'linematch:60'       -- align and mark changes between the most similar lines between the buffers (https://www.reddit.com/r/neovim/comments/1ihpvaf/the_linematch_diffopt_makes_builtin_diff_so_sweat/)
 vim.opt.fillchars.eob = ' '                 -- show empty lines at the end of a buffer instead of the default `~`
 vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 
