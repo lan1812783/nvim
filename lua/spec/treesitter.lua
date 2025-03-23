@@ -18,6 +18,8 @@ local M = {
         'cpp',
         'go',
         'java',
+        'python',
+        'bash',
         'yaml',
       },
 
