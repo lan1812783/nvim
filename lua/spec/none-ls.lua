@@ -4,7 +4,6 @@ local M = {
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
-      'nvimtools/none-ls-extras.nvim',
     },
   },
   config = function()
@@ -22,7 +21,6 @@ local M = {
           extra_args = { '--single-quote=true' },
         },
         null_ls.builtins.formatting.stylua,
-        require 'none-ls.diagnostics.eslint_d',
         -- Python
         null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.formatting.isort,
