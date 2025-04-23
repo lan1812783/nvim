@@ -1,7 +1,7 @@
 local M = {
   'nvim-treesitter/nvim-treesitter',
   build = function()
-    require('nvim-treesitter.install').update { with_sync = true }()
+    require('nvim-treesitter.install').update { with_sync = true } ()
   end,
   config = function()
     local configs = require 'nvim-treesitter.configs'
@@ -18,6 +18,8 @@ local M = {
         'cpp',
         'go',
         'java',
+        'python',
+        'bash',
         'yaml',
       },
 
@@ -74,14 +76,9 @@ local M = {
     local isBufSizeBig = require('commons').utils.isBufSizeBig
     vim.api.nvim_create_autocmd('BufReadPre', {
       callback = function()
-        if isBufSizeBig(0) then
-          -- Although 'manual' is the default fold method,
-          -- not explicitly setting this still causes high loading time on big file,
-          -- maybe fold method has been implicitly set somewhere else prior to this
-          vim.opt.foldmethod = 'manual'
-        else
-          vim.opt.foldmethod = 'expr'
-          vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+        if not isBufSizeBig(0) then
+          vim.wo.foldmethod = 'expr'
+          -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- this is the default since nvim v0.11
         end
       end,
     })

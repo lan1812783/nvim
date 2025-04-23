@@ -24,6 +24,7 @@ local options = {
   colorcolumn = '80',                       -- ruler
   spell = true,                             -- enable spell checking
   spelllang = 'en_us',                      -- languages used for spell checking
+  synmaxcol = 500,                          -- limit max column for syntax highling to mitigate high loading time on big file
 }
 
 for k, v in pairs(options) do
@@ -35,8 +36,8 @@ vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previ
 
 -- Mitigate high loading time on big file
 -- Tests with value 0 show that these do not take affect, so choose value 1
-vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L15
-vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L18
+vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
+vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
 -- Capture the diff mode flag globally because tests show that when nvim is
 -- opened in diff mode (e.g. via git difftool, nvim -d, etc), a ftplugin script

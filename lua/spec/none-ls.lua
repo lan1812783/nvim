@@ -4,7 +4,6 @@ local M = {
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
-      'nvimtools/none-ls-extras.nvim',
     },
   },
   config = function()
@@ -22,12 +21,14 @@ local M = {
           extra_args = { '--single-quote=true' },
         },
         null_ls.builtins.formatting.stylua,
-        require 'none-ls.diagnostics.eslint_d',
         -- Python
         null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.formatting.isort,
         null_ls.builtins.formatting.black.with {
           extra_args = { '--line-length=80', '--skip-string-normalization' },
+        },
+        null_ls.builtins.formatting.shfmt.with {
+          extra_args = { '-i', '2', '-ci', '-bn' }, -- https://github.com/mvdan/sh/blob/ba0f5f2a1661a86e813dbe0ee0da60e46f12f56d/cmd/shfmt/shfmt.1.scd?plain=1#L125
         },
       },
       -- you can reuse a shared lspconfig on_attach callback here

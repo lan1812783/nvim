@@ -13,6 +13,14 @@ local workspace_dir = jdtls_dir .. '/workspace' .. vim.fn.getcwd()
 --                                   ^^
 --                                   string concattenation in Lua
 
+function get_cmp_capabilities()
+  local require_ok, blink = pcall(require, 'blink.cmp')
+  if require_ok then
+    return blink.get_lsp_capabilities()
+  end
+  return {}
+end
+
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
   -- The command that starts the language server
@@ -92,6 +100,9 @@ local config = {
   init_options = {
     bundles = {},
   },
+
+  -- We didn't advertise the completion capabilities to jdtls when configuring the lsp, so we are adding that here
+  capabilities = get_cmp_capabilities(),
 }
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.

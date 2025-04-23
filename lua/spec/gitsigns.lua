@@ -110,7 +110,7 @@ local M = {
       map(
         { 'o', 'x' },
         'ih',
-        ':<C-U>Gitsigns select_hunk<CR>',
+        gs.select_hunk,
         { desc = 'Gitsigns: select hunk' }
       )
     end,
