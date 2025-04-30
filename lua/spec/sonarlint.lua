@@ -2,7 +2,6 @@ local M = {
   url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim.git',
   dependencies = {
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
     'lewis6991/gitsigns.nvim',
   },
   config = function()

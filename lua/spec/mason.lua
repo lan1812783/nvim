@@ -1,8 +1,8 @@
 local M = {
-  'williamboman/mason.nvim',
+  'mason-org/mason.nvim',
   build = ':MasonUpdate',
   dependencies = {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
   },
@@ -17,25 +17,28 @@ local M = {
       },
     }
 
+    local ensure_installed = vim.list_extend({
+      'clang-format',
+      'codelldb',
+      'google-java-format',
+      'jdtls',
+      'prettierd',
+      'sonarlint-language-server',
+      'stylua',
+      'pylint',
+      'isort',
+      'black',
+      'shellcheck', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
+      'shfmt', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
+    }, require('commons').servers)
+    if vim.g.go then
+      ensure_installed =
+        vim.list_extend({ 'delve', 'gofumpt' }, ensure_installed)
+    end
+
     require('mason').setup(settings)
     require('mason-tool-installer').setup {
-      ensure_installed = vim.list_extend({
-        'clang-format',
-        'codelldb',
-        'delve',
-        'eslint_d',
-        'gofumpt',
-        'google-java-format',
-        'jdtls',
-        'prettierd',
-        'sonarlint-language-server',
-        'stylua',
-        'pylint',
-        'isort',
-        'black',
-        'shellcheck', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
-        'shfmt', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
-      }, require('commons').servers),
+      ensure_installed = ensure_installed,
     }
     vim.api.nvim_create_autocmd('User', {
       pattern = 'MasonToolsStartingInstall',

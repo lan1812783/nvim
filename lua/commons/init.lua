@@ -1,3 +1,19 @@
+local servers = {
+  'lua_ls',
+  'html',
+  'cssls',
+  'ts_ls',
+  -- 'jdtls', -- allow only nvim-jdtls to start the client (https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#nvim-lspconfig-and-nvim-jdtls-differences)
+  'clangd',
+  'bashls',
+  'yamlls',
+  'pyright',
+  'harper_ls',
+}
+if vim.g.go then
+  servers = vim.list_extend({ 'gopls' }, servers)
+end
+
 local M = {
   constants = {
     big_file_size = 50 * 1024, -- 50 KB
@@ -11,19 +27,7 @@ local M = {
       vim.keymap.set(mode, lhs, rhs, options)
     end,
   },
-  servers = {
-    'lua_ls',
-    'html',
-    'cssls',
-    'ts_ls',
-    -- 'jdtls', -- allow only nvim-jdtls to start the client (https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#nvim-lspconfig-and-nvim-jdtls-differences)
-    'clangd',
-    'gopls',
-    'bashls',
-    'yamlls',
-    'pyright',
-    'harper_ls',
-  },
+  servers = servers,
 }
 
 function M.utils.isBufSizeBig(buf)
