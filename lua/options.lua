@@ -47,3 +47,5 @@ vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/
 -- be returned, which makes this api not appropriate to be used in ftplugin
 -- scripts when nvim is in diff mode
 vim.g.diffmode = vim.o.diff
+
+vim.g.go = vim.fn.executable('go') == 1
