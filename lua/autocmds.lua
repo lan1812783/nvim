@@ -12,6 +12,13 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'java' },
+  callback = function()
+    vim.opt_local.colorcolumn = '100'
+  end,
+})
+
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
     vim.opt_local.spell = false

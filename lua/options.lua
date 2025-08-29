@@ -39,13 +39,4 @@ vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previ
 vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
 vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
--- Capture the diff mode flag globally because tests show that when nvim is
--- opened in diff mode (e.g. via git difftool, nvim -d, etc), a ftplugin script
--- is called as many times as the number of buffers opened for diff viewing, and
--- it seems like vim.o.diff (or vim.opt.diff:get()) returns true only on the
--- first time a ftplugin script is called, subsequent calls result in false to
--- be returned, which makes this api not appropriate to be used in ftplugin
--- scripts when nvim is in diff mode
-vim.g.diffmode = vim.o.diff
-
 vim.g.go = vim.fn.executable('go') == 1

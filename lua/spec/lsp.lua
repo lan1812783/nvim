@@ -1,9 +1,10 @@
 local M = {
   'neovim/nvim-lspconfig',
-  cond = not vim.g.diffmode, -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
+  cond = not vim.o.diff, -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
   dependencies = {
     {
       'saghen/blink.cmp',
+      'mason-org/mason.nvim', -- for resolving $MASON in jdtls' settings
     },
   },
   config = function()

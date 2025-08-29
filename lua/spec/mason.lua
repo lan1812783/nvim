@@ -31,7 +31,6 @@ local M = {
         'codelldb',
         'checkstyle',
         'google-java-format',
-        'jdtls',
         'prettierd',
         'sonarlint-language-server',
         'stylua',

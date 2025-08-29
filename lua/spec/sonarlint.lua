@@ -1,6 +1,6 @@
 local M = {
   url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim.git',
-  cond = not vim.g.diffmode,
+  cond = not vim.o.diff,
   dependencies = {
     'neovim/nvim-lspconfig',
     'mason-org/mason.nvim', -- for resolving $MASON in the analyzer paths
