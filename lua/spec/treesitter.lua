@@ -21,6 +21,7 @@ local M = {
         'python',
         'bash',
         'yaml',
+        'sql',
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)

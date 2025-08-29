@@ -6,6 +6,15 @@ local M = {
         files = { hidden = true },
         grep = { hidden = true },
       },
+      ui_select = false,
+      win = {
+        input = {
+          keys = {
+            ['<c-j>'] = { 'history_forward', mode = { 'i', 'n' } },
+            ['<c-k>'] = { 'history_back', mode = { 'i', 'n' } },
+          },
+        },
+      },
     },
   },
   keys = {

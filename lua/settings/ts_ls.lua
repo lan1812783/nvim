@@ -1,4 +1,4 @@
--- https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#workspacedidchangeconfiguration
+-- https://github.com/typescript-language-server/typescript-language-server?tab=readme-ov-file#inlay-hints-textdocumentinlayhint
 local options = {
   inlayHints = {
     includeInlayEnumMemberValueHints = true,

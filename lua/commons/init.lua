@@ -7,7 +7,7 @@ local servers = {
   'clangd',
   'bashls',
   'yamlls',
-  'pyright',
+  'basedpyright',
   'harper_ls',
 }
 if vim.g.go then

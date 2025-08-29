@@ -24,7 +24,7 @@ local options = {
   colorcolumn = '80',                       -- ruler
   spell = true,                             -- enable spell checking
   spelllang = 'en_us',                      -- languages used for spell checking
-  synmaxcol = 500,                          -- limit max column for syntax highling to mitigate high loading time on big file
+  synmaxcol = 500,                          -- limit max column for syntax highlighting to mitigate high loading time on big file
 }
 
 for k, v in pairs(options) do
