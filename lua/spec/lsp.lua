@@ -10,24 +10,66 @@ local M = {
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(args)
+        local map = require('commons').utils.map
+
         -- Mitigate high loading time on big file
         local bufSizeNotBig =
           not require('commons').utils.isBufSizeBig(args.buf)
 
-        -- :h lsp-inlay_hint
-        vim.lsp.inlay_hint.enable(bufSizeNotBig)
-        vim.keymap.set('n', 'H', function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end, { desc = 'LSP: toggle inlay hint' })
+        local lspMethods = vim.lsp.protocol.Methods
 
-        if bufSizeNotBig then
-          -- :h vim.lsp.foldexpr()
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client:supports_method 'textDocument/foldingRange' then
-            local win = vim.api.nvim_get_current_win()
-            vim.wo[win][0].foldmethod = 'expr'
-            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+        -- :h lsp-inlay_hint
+        if client:supports_method(lspMethods.textDocument_inlayHint) then
+          vim.lsp.inlay_hint.enable(bufSizeNotBig)
+          map('n', 'grh', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end, { buffer = args.buf, desc = 'LSP: toggle inlay hint' })
+        end
+
+        -- :h vim.lsp.foldexpr()
+        if
+          bufSizeNotBig
+          and client:supports_method(lspMethods.textDocument_foldingRange)
+        then
+          local win = vim.api.nvim_get_current_win()
+          vim.wo[win][0].foldmethod = 'expr'
+          vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
+
+        -- :h lsp-codelens
+        -- https://github.com/neovim/neovim/discussions/24791#discussioncomment-13336751
+        if client:supports_method(lspMethods.textDocument_codeLens) then
+          if bufSizeNotBig then
+            vim.lsp.codelens.refresh()
+            vim.api.nvim_create_autocmd(
+              { 'BufEnter', 'CursorHold', 'InsertLeave' },
+              {
+                buffer = args.buf,
+                group = vim.api.nvim_create_augroup(
+                  'code_lens',
+                  { clear = true }
+                ),
+                callback = vim.lsp.codelens.refresh,
+              }
+            )
           end
+          map('n', 'grl', vim.lsp.codelens.run, {
+            buffer = args.buf,
+            desc = 'LSP: run the code lens available in the current line',
+          })
+        end
+
+        -- :h lsp-attach
+        if
+          not client:supports_method(lspMethods.textDocument_willSaveWaitUntil)
+          and client:supports_method(lspMethods.textDocument_formatting)
+        then
+          vim.keymap.set({ 'n', 'v' }, 'grf', vim.lsp.buf.format, {
+            buffer = args.buf,
+            desc = 'LSP: format current selection or buffer',
+          })
         end
       end,
     })

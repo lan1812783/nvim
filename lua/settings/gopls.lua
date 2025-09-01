@@ -1,11 +1,13 @@
+---@type vim.lsp.Config
 return {
   settings = {
+    -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
     gopls = {
       analyses = {
         unusedparams = true,
       },
       staticcheck = true,
-      gofumpt = true,
+      gofumpt = true, -- https://github.com/mvdan/gofumpt?tab=readme-ov-file#neovim
       -- https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md#hints
       hints = {
         assignVariableTypes = true,

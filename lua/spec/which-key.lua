@@ -1,6 +1,8 @@
 local M = {
   'folke/which-key.nvim',
   event = 'VeryLazy',
+  ---@module 'which-key
+  ---@type wk.Config
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
