@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'lewis6991/gitsigns.nvim',
   ---@module 'gitsigns'

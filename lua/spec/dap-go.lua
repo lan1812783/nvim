@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'leoluz/nvim-dap-go',
   enabled = vim.g.go,

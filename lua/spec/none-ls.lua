@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'nvimtools/none-ls.nvim',
   cond = not vim.o.diff,

@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'hedyhli/outline.nvim',
   config = function()

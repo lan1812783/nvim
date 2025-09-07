@@ -1,7 +1,9 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'nvim-treesitter/nvim-treesitter',
   build = function()
-    require('nvim-treesitter.install').update { with_sync = true } ()
+    require('nvim-treesitter.install').update { with_sync = true }()
   end,
   config = function()
     local configs = require 'nvim-treesitter.configs'
@@ -48,11 +50,11 @@ local M = {
         -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
         disable = function(lang, buf)
           local ok, stats =
-              pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+            pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
           if
-              ok
-              and stats
-              and stats.size > require('commons').constants.big_file_size
+            ok
+            and stats
+            and stats.size > require('commons').constants.big_file_size
           then
             return true
           end

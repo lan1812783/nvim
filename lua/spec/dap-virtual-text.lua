@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'theHamsta/nvim-dap-virtual-text',
   dependencies = {

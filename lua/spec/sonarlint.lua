@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim.git',
   cond = not vim.o.diff,

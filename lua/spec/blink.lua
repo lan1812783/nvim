@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
