@@ -39,7 +39,6 @@ local M = {
         'google-java-format',
         'prettierd',
         'sonarlint-language-server',
-        'stylua',
         'pylint',
         'isort',
         'black',

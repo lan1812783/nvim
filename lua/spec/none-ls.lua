@@ -23,7 +23,6 @@ local M = {
       null_ls.builtins.formatting.prettierd.with {
         extra_args = { '--single-quote=true' },
       },
-      null_ls.builtins.formatting.stylua,
       -- Python
       null_ls.builtins.diagnostics.pylint,
       null_ls.builtins.formatting.isort,

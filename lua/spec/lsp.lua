@@ -14,16 +14,21 @@ local M = {
       callback = function(args)
         local map = require('commons').utils.map
 
+        map({ 'n' }, 'grr', function()
+          vim.lsp.buf.references { includeDeclaration = false }
+        end, {
+          buffer = args.buf,
+          desc = 'LSP: format current selection or buffer',
+        })
+
         -- Mitigate high loading time on big file
         local bufSizeNotBig =
           not require('commons').utils.isBufSizeBig(args.buf)
 
-        local lspMethods = vim.lsp.protocol.Methods
-
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
         -- :h lsp-inlay_hint
-        if client:supports_method(lspMethods.textDocument_inlayHint) then
+        if client:supports_method 'textDocument/inlayHint' then
           vim.lsp.inlay_hint.enable(bufSizeNotBig)
           map('n', 'grh', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -33,7 +38,7 @@ local M = {
         -- :h vim.lsp.foldexpr()
         if
           bufSizeNotBig
-          and client:supports_method(lspMethods.textDocument_foldingRange)
+          and client:supports_method 'textDocument/foldingRange'
         then
           local win = vim.api.nvim_get_current_win()
           vim.wo[win][0].foldmethod = 'expr'
@@ -42,7 +47,7 @@ local M = {
 
         -- :h lsp-codelens
         -- https://github.com/neovim/neovim/discussions/24791#discussioncomment-13336751
-        if client:supports_method(lspMethods.textDocument_codeLens) then
+        if client:supports_method 'textDocument/codeLens' then
           if bufSizeNotBig then
             vim.lsp.codelens.refresh()
             vim.api.nvim_create_autocmd(
@@ -65,9 +70,24 @@ local M = {
 
         -- :h lsp-attach
         if
-          not client:supports_method(lspMethods.textDocument_willSaveWaitUntil)
-          and client:supports_method(lspMethods.textDocument_formatting)
+          not client:supports_method 'textDocument/willSaveWaitUntil'
+          and client:supports_method 'textDocument/formatting'
         then
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            group = vim.api.nvim_create_augroup(
+              'formatting',
+              { clear = false }
+            ),
+            buffer = args.buf,
+            callback = function()
+              vim.lsp.buf.format {
+                bufnr = args.buf,
+                id = client.id,
+                timeout_ms = 1000,
+              }
+            end,
+          })
+
           vim.keymap.set({ 'n', 'v' }, 'grf', vim.lsp.buf.format, {
             buffer = args.buf,
             desc = 'LSP: format current selection or buffer',
@@ -80,10 +100,6 @@ local M = {
 
     -- With Neovim 0.11, blink.cmp automatically advertises its capabilities to all LSP servers (https://github.com/Saghen/blink.cmp/blob/main/plugin/blink-cmp.lua)
     for _, server in pairs(require('commons').servers) do
-      local require_ok, settings = pcall(require, 'settings.' .. server)
-      if require_ok then
-        vim.lsp.config(server, settings)
-      end
       vim.lsp.enable(server)
     end
 

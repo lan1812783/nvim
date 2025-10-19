@@ -1,5 +1,6 @@
 local servers = {
   'lua_ls',
+  'stylua',
   'html',
   'cssls',
   'ts_ls',
@@ -9,6 +10,7 @@ local servers = {
   'yamlls',
   'basedpyright',
   'harper_ls',
+  'buf_ls',
 }
 if vim.g.go then
   servers = vim.list_extend({ 'gopls' }, servers)
