@@ -26,6 +26,7 @@ local options = {
   spelllang = 'en_us',                      -- languages used for spell checking
   synmaxcol = 500,                          -- limit max column for syntax highlighting to mitigate high loading time on big file
   winborder = 'rounded',                    -- border for popup windows
+  foldenable = false,                       -- disable folding when open a file
 }
 
 for k, v in pairs(options) do
@@ -36,7 +37,7 @@ vim.opt.fillchars.eob = ' '                 -- show empty lines at the end of a 
 vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 
 -- Mitigate high loading time on big file
--- Tests with value 0 show that these do not take affect, so choose value 1
+-- Tests with value 0 show that these do not take effect, so choose value 1
 vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
 vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
