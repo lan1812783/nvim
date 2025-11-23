@@ -1,11 +1,8 @@
 local map = require('commons').utils.map
 
 -- Disable arrow keys --
-for _, mode in pairs { 'n', 'i', 'v', 'x' } do
-  map(mode, '<up>', '<Nop>')
-  map(mode, '<down>', '<Nop>')
-  map(mode, '<left>', '<Nop>')
-  map(mode, '<right>', '<Nop>')
+for _, arrowKey in pairs { '<up>', '<down>', '<left>', '<right>' } do
+  map({ 'n', 'i', 'v', 'x' }, arrowKey, '<Nop>')
 end
 
 -- Indentation --

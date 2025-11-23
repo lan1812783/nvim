@@ -1,12 +1,13 @@
+---@type vim.lsp.Config
 return {
   settings = {
+    -- https://luals.github.io/wiki/settings
     Lua = {
       diagnostics = {
         globals = { 'vim' },
       },
-      -- https://github.com/LuaLS/lua-language-server/wiki/Tips#inlay-hints
-      hint = {
-        enable = true,
+      format = {
+        enable = false,
       },
     },
   },

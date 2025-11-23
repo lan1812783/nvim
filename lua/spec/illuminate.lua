@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'RRethy/vim-illuminate',
   config = function()

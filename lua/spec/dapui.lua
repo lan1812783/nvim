@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'rcarriga/nvim-dap-ui',
   dependencies = {
@@ -11,13 +13,16 @@ local M = {
 
     dapui.setup()
 
-    dap.listeners.after.event_initialized['dapui_config'] = function()
+    dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
-    dap.listeners.before.event_terminated['dapui_config'] = function()
+    dap.listeners.before.launch.dapui_config = function()
+      dapui.open()
+    end
+    dap.listeners.before.event_terminated.dapui_config = function()
       dapui.close()
     end
-    dap.listeners.before.event_exited['dapui_config'] = function()
+    dap.listeners.before.event_exited.dapui_config = function()
       dapui.close()
     end
 
@@ -116,6 +121,13 @@ local M = {
       end,
       { desc = 'DAP: view the current scopes in a centered floating window' }
     )
+
+    -- https://github.com/rcarriga/nvim-dap-ui/issues/368#issuecomment-2156654577
+    vim.keymap.set('n', '<Leader>d=', function()
+      if dap.session() then
+        dapui.open { reset = true }
+      end
+    end, { desc = 'DAP: reset windows to original size' })
 
     vim.api.nvim_set_hl(
       0,

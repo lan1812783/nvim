@@ -1,4 +1,3 @@
--- https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#workspacedidchangeconfiguration
 local options = {
   inlayHints = {
     includeInlayEnumMemberValueHints = true,
@@ -10,10 +9,19 @@ local options = {
     includeInlayVariableTypeHints = true,
     includeInlayVariableTypeHintsWhenTypeMatchesName = true,
   },
+  implementationsCodeLens = {
+    enabled = true,
+  },
+  referencesCodeLens = {
+    enabled = true,
+    showOnAllFunctions = true,
+  },
 }
 
+---@type vim.lsp.Config
 return {
   settings = {
+    -- https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#workspacedidchangeconfiguration
     typescript = options,
     javascript = options,
   },

@@ -1,7 +1,10 @@
 ---@module 'lazy'
 ---@type LazySpec
 local M = {
-  'mfussenegger/nvim-jdtls',
+  'j-hui/fidget.nvim',
+  opts = {
+    -- options
+  },
 }
 
 return M

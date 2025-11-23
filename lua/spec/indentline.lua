@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'lukas-reineke/indent-blankline.nvim',
   config = function()
@@ -24,7 +26,10 @@ local M = {
       vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
     end)
 
-    require('ibl').setup { scope = { highlight = highlight } }
+    require('ibl').setup {
+      indent = { smart_indent_cap = false },
+      scope = { highlight = highlight },
+    }
   end,
 }
 

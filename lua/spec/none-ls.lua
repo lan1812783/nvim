@@ -1,6 +1,8 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'nvimtools/none-ls.nvim',
-  cond = not vim.g.diffmode,
+  cond = not vim.o.diff,
   dependencies = {
     {
       'nvim-lua/plenary.nvim',
@@ -10,27 +12,34 @@ local M = {
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     local null_ls = require 'null-ls'
 
-    null_ls.setup {
-      sources = {
-        null_ls.builtins.formatting.clang_format.with {
-          disabled_filetypes = { 'java' }, -- use google_java_format formatter instead
-        },
-        null_ls.builtins.formatting.gofmt,
-        null_ls.builtins.formatting.google_java_format,
-        null_ls.builtins.formatting.prettierd.with {
-          extra_args = { '--single-quote=true' },
-        },
-        null_ls.builtins.formatting.stylua,
-        -- Python
-        null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.black.with {
-          extra_args = { '--line-length=80', '--skip-string-normalization' },
-        },
-        null_ls.builtins.formatting.shfmt.with {
-          extra_args = { '-i', '2', '-ci', '-bn' }, -- https://github.com/mvdan/sh/blob/ba0f5f2a1661a86e813dbe0ee0da60e46f12f56d/cmd/shfmt/shfmt.1.scd?plain=1#L125
-        },
+    local sources = {
+      null_ls.builtins.formatting.clang_format.with {
+        disabled_filetypes = { 'java' }, -- use google_java_format formatter instead
       },
+      null_ls.builtins.diagnostics.checkstyle.with {
+        extra_args = { '-c', '/google_checks.xml' }, -- or "/sun_checks.xml" or path to self written rules
+      },
+      null_ls.builtins.formatting.google_java_format,
+      null_ls.builtins.formatting.prettierd.with {
+        extra_args = { '--single-quote=true' },
+      },
+      -- Python
+      null_ls.builtins.diagnostics.pylint,
+      null_ls.builtins.formatting.isort,
+      null_ls.builtins.formatting.black.with {
+        extra_args = { '--line-length=80', '--skip-string-normalization' },
+      },
+      null_ls.builtins.formatting.shfmt.with {
+        extra_args = { '-i', '2', '-ci', '-bn' }, -- https://github.com/mvdan/sh/blob/ba0f5f2a1661a86e813dbe0ee0da60e46f12f56d/cmd/shfmt/shfmt.1.scd?plain=1#L125
+      },
+    }
+    if vim.g.go then
+      sources =
+        vim.list_extend({ null_ls.builtins.formatting.gofumpt }, sources)
+    end
+
+    null_ls.setup {
+      sources = sources,
       -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)
         if client.supports_method 'textDocument/formatting' then

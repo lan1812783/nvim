@@ -24,7 +24,9 @@ local options = {
   colorcolumn = '80',                       -- ruler
   spell = true,                             -- enable spell checking
   spelllang = 'en_us',                      -- languages used for spell checking
-  synmaxcol = 500,                          -- limit max column for syntax highling to mitigate high loading time on big file
+  synmaxcol = 500,                          -- limit max column for syntax highlighting to mitigate high loading time on big file
+  winborder = 'rounded',                    -- border for popup windows
+  foldenable = false,                       -- disable folding when open a file
 }
 
 for k, v in pairs(options) do
@@ -35,15 +37,8 @@ vim.opt.fillchars.eob = ' '                 -- show empty lines at the end of a 
 vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 
 -- Mitigate high loading time on big file
--- Tests with value 0 show that these do not take affect, so choose value 1
+-- Tests with value 0 show that these do not take effect, so choose value 1
 vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
 vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
--- Capture the diff mode flag globally because tests show that when nvim is
--- opened in diff mode (e.g. via git difftool, nvim -d, etc), a ftplugin script
--- is called as many times as the number of buffers opened for diff viewing, and
--- it seems like vim.o.diff (or vim.opt.diff:get()) returns true only on the
--- first time a ftplugin script is called, subsequent calls result in false to
--- be returned, which makes this api not appropriate to be used in ftplugin
--- scripts when nvim is in diff mode
-vim.g.diffmode = vim.o.diff
+vim.g.go = vim.fn.executable('go') == 1

@@ -1,5 +1,9 @@
+---@module 'lazy'
+---@type LazySpec
 local M = {
   'folke/trouble.nvim',
+  ---@module 'trouble'
+  ---@type trouble.Config
   opts = {
     focus = true,
     win = {
