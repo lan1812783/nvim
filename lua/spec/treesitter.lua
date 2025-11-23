@@ -1,91 +1,55 @@
+local ensure_installed = {
+  'html',
+  'css',
+  'javascript',
+  'tsx',
+  'cmake',
+  'make',
+  'cpp',
+  'go',
+  'java',
+  'python',
+  'bash',
+  'yaml',
+  'sql',
+}
+
 ---@module 'lazy'
 ---@type LazySpec
+-- https://github.com/nvim-treesitter/nvim-treesitter/discussions/7894#discussioncomment-13296403
 local M = {
   'nvim-treesitter/nvim-treesitter',
+  lazy = false,
+  branch = 'main',
   build = function()
-    require('nvim-treesitter.install').update { with_sync = true }()
+    require('nvim-treesitter').install(ensure_installed)
+    require('nvim-treesitter').update()
   end,
-  config = function()
-    local configs = require 'nvim-treesitter.configs'
-
-    configs.setup {
-      -- A list of parser names, or 'all' (the five listed parsers should always be installed)
-      ensure_installed = {
-        'html',
-        'css',
-        'javascript',
-        'tsx',
-        'cmake',
-        'make',
-        'cpp',
-        'go',
-        'java',
-        'python',
-        'bash',
-        'yaml',
-        'sql',
-      },
-
-      -- Install parsers synchronously (only applied to `ensure_installed`)
-      -- sync_install = false,
-
-      -- Automatically install missing parsers when entering buffer
-      -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-      -- auto_install = true,
-
-      -- List of parsers to ignore installing (or 'all')
-      -- ignore_install = { 'javascript' },
-
-      -- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-      -- parser_install_dir = '/some/path/to/store/parsers', -- Remember to run vim.opt.runtimepath:append('/some/path/to/store/parsers')!
-
-      highlight = {
-        enable = true,
-
-        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-        -- the name of the parser)
-        -- list of language that will be disabled
-        -- disable = { 'c', 'rust' },
-        -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-        disable = function(lang, buf)
+  init = function()
+    require('nvim-treesitter').install(ensure_installed):await(function()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
           local ok, stats =
-            pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+            pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
           if
             ok
             and stats
             and stats.size > require('commons').constants.big_file_size
           then
-            return true
+            return
+          end
+
+          local filetype = args.match
+          local lang = vim.treesitter.language.get_lang(filetype)
+          if vim.treesitter.language.add(lang) then
+            vim.wo.foldmethod = 'expr'
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            vim.treesitter.start()
           end
         end,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        -- additional_vim_regex_highlighting = false,
-      },
-      incremental_selection = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-    }
-
-    -- Mitigate high loading time on big file
-    -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1100#issuecomment-1762594005
-    local isBufSizeBig = require('commons').utils.isBufSizeBig
-    vim.api.nvim_create_autocmd('BufReadPre', {
-      callback = function()
-        if not isBufSizeBig(0) then
-          vim.wo.foldmethod = 'expr'
-          -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- this is the default since nvim v0.11
-        end
-      end,
-    })
-    vim.opt.foldenable = false -- Disable folding at startup.
+      })
+    end)
   end,
 }
 
