@@ -13,9 +13,6 @@ local M = {
     local null_ls = require 'null-ls'
 
     local sources = {
-      null_ls.builtins.formatting.clang_format.with {
-        disabled_filetypes = { 'java' }, -- use google_java_format formatter instead
-      },
       null_ls.builtins.diagnostics.checkstyle.with {
         extra_args = { '-c', '/google_checks.xml' }, -- or "/sun_checks.xml" or path to self written rules
       },
@@ -29,14 +26,7 @@ local M = {
       null_ls.builtins.formatting.black.with {
         extra_args = { '--line-length=80', '--skip-string-normalization' },
       },
-      null_ls.builtins.formatting.shfmt.with {
-        extra_args = { '-i', '2', '-ci', '-bn' }, -- https://github.com/mvdan/sh/blob/ba0f5f2a1661a86e813dbe0ee0da60e46f12f56d/cmd/shfmt/shfmt.1.scd?plain=1#L125
-      },
     }
-    if vim.g.go then
-      sources =
-        vim.list_extend({ null_ls.builtins.formatting.gofumpt }, sources)
-    end
 
     null_ls.setup {
       sources = sources,
