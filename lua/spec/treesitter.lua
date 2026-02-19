@@ -20,7 +20,6 @@ local ensure_installed = {
 local M = {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,
-  branch = 'main',
   build = function()
     require('nvim-treesitter').install(ensure_installed)
     require('nvim-treesitter').update()
