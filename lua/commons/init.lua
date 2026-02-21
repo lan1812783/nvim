@@ -11,6 +11,7 @@ local servers = {
   'basedpyright',
   'harper_ls',
   'buf_ls',
+  'jsonls',
 }
 if vim.g.go then
   servers = vim.list_extend({ 'gopls' }, servers)

@@ -24,7 +24,7 @@ local M = {
     require('lualine').setup {
       options = {
         disabled_filetypes = { -- Filetypes to disable lualine for.
-          winbar = { 'NvimTree', 'Outline', 'dap-repl', 'qf', 'trouble' }, -- only ignores the ft for winbar.
+          winbar = { 'NvimTree', 'dap-repl', 'qf' }, -- only ignores the ft for winbar.
         },
       },
       extensions = {
@@ -33,8 +33,6 @@ local M = {
         'nvim-dap-ui',
         'nvim-tree',
         'quickfix',
-        'symbols-outline',
-        'trouble',
       },
       winbar = winbar,
       inactive_winbar = winbar,
