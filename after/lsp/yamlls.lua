@@ -2,6 +2,9 @@
 return {
   settings = {
     yaml = {
+      format = {
+        singleQuote = true,
+      },
       customTags = {
         '!reference sequence', -- https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#configure-your-ide-to-support-reference-tags
         -- CloudFormation custom tags (https://github.com/redhat-developer/vscode-yaml/issues/669#issuecomment-1136338006)

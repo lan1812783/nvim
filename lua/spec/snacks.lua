@@ -2,6 +2,8 @@
 ---@type LazySpec
 local M = {
   'folke/snacks.nvim',
+  priority = 1000,
+  lazy = false,
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
@@ -20,6 +22,7 @@ local M = {
         },
       },
     },
+    words = { enabled = true },
   },
   keys = {
     {

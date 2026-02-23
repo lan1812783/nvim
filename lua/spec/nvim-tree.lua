@@ -17,6 +17,11 @@ local M = {
 
     -- empty setup using defaults
     require('nvim-tree').setup {
+      actions = {
+        open_file = {
+          resize_window = false,
+        },
+      },
       diagnostics = {
         enable = true,
         show_on_dirs = true,
