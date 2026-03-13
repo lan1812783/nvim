@@ -3,7 +3,7 @@
 local M = {
   'folke/which-key.nvim',
   event = 'VeryLazy',
-  ---@module 'which-key
+  ---@module 'which-key'
   ---@type wk.Config
   opts = {
     -- your configuration comes here

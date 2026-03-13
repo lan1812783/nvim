@@ -4,10 +4,8 @@ local M = {
   'neovim/nvim-lspconfig',
   cond = not vim.o.diff, -- 'cond' would install but not load the plugin, whereas 'enabled' would not install the plugin at all
   dependencies = {
-    {
-      'saghen/blink.cmp',
-      'mason-org/mason.nvim', -- for resolving $MASON in jdtls' settings
-    },
+    'saghen/blink.cmp',
+    'mason-org/mason.nvim', -- for resolving $MASON in jdtls' settings
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
@@ -18,7 +16,7 @@ local M = {
           vim.lsp.buf.references { includeDeclaration = false }
         end, {
           buffer = args.buf,
-          desc = 'LSP: format current selection or buffer',
+          desc = 'LSP: lists all the references',
         })
 
         -- Mitigate high loading time on big file
@@ -54,10 +52,7 @@ local M = {
               { 'BufEnter', 'CursorHold', 'InsertLeave' },
               {
                 buffer = args.buf,
-                group = vim.api.nvim_create_augroup(
-                  'code_lens',
-                  { clear = true }
-                ),
+                group = vim.api.nvim_create_augroup('code_lens', {}),
                 callback = vim.lsp.codelens.refresh,
               }
             )
@@ -103,14 +98,6 @@ local M = {
       vim.lsp.enable(server)
     end
 
-    -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-    local signs =
-      { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-    for type, icon in pairs(signs) do
-      local hl = 'DiagnosticSign' .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
-
     vim.diagnostic.config {
       update_in_insert = true,
       severity_sort = true,
@@ -118,6 +105,20 @@ local M = {
         source = true,
       },
       virtual_text = true,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = '',
+          [vim.diagnostic.severity.WARN] = '',
+          [vim.diagnostic.severity.INFO] = '',
+          [vim.diagnostic.severity.HINT] = '',
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+          [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+          [vim.diagnostic.severity.INFO] = 'DiagnosticSignHint',
+          [vim.diagnostic.severity.HINT] = 'DiagnosticSignInfo',
+        },
+      },
     }
   end,
 }
