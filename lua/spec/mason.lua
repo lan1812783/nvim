@@ -33,7 +33,6 @@ local M = {
     },
     config = function()
       local ensure_installed = vim.list_extend({
-        'clang-format',
         'codelldb',
         'checkstyle',
         'google-java-format',
@@ -47,8 +46,7 @@ local M = {
         'tree-sitter-cli', -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main?tab=readme-ov-file#requirements
       }, require('commons').servers)
       if vim.g.go then
-        ensure_installed =
-          vim.list_extend({ 'delve', 'gofumpt' }, ensure_installed)
+        ensure_installed = vim.list_extend({ 'delve' }, ensure_installed)
       end
 
       require('mason-tool-installer').setup {

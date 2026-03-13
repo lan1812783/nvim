@@ -3,11 +3,7 @@
 local M = {
   'nvimtools/none-ls.nvim',
   cond = not vim.o.diff,
-  dependencies = {
-    {
-      'nvim-lua/plenary.nvim',
-    },
-  },
+  dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     local null_ls = require 'null-ls'
