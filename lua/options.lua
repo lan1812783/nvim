@@ -1,5 +1,9 @@
 local options = {
-  completeopt = { 'menuone', 'noselect' },  -- show popup menu even when there is only one match and no item is pre-selected
+  completeopt = {                           -- fuzzy match, show popup menu even when there is only one match and no item is inserted until first selection
+    'fuzzy',
+    'menuone',
+    'noinsert',
+  },
   pumheight = 10,                           -- maximum popup menu items
   ignorecase = true,                        -- ignore case in search patterns
   smartcase = true,                         -- case sensitive only when there is at least one uppercase letter in search patterns
@@ -33,7 +37,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.opt.fillchars.eob = ' '                 -- show empty lines at the end of a buffer instead of the default `~`
+vim.opt.fillchars = { eob = ' ' }           -- show empty lines at the end of a buffer instead of the default `~`
 vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 
 -- Mitigate high loading time on big file
