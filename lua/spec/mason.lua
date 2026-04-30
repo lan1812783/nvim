@@ -44,6 +44,7 @@ local M = {
         'shellcheck', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
         'shfmt', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
         'tree-sitter-cli', -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main?tab=readme-ov-file#requirements
+        'gitleaks',
       }, require('commons').servers)
       if vim.g.go then
         ensure_installed = vim.list_extend({ 'delve' }, ensure_installed)

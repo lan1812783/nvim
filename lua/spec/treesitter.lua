@@ -13,6 +13,7 @@ local ensure_installed = {
   'yaml',
   'sql',
   'json',
+  'lua',
 }
 
 ---@module 'lazy'

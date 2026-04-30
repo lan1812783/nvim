@@ -22,6 +22,7 @@ local M = {
       null_ls.builtins.formatting.black.with {
         extra_args = { '--line-length=80', '--skip-string-normalization' },
       },
+      null_ls.builtins.diagnostics.gitleaks,
     }
 
     null_ls.setup {
