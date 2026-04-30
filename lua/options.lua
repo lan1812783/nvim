@@ -29,7 +29,8 @@ local options = {
   spell = true,                             -- enable spell checking
   spelllang = 'en_us',                      -- languages used for spell checking
   synmaxcol = 500,                          -- limit max column for syntax highlighting to mitigate high loading time on big file
-  winborder = 'rounded',                    -- border for popup windows
+  winborder = 'rounded',                    -- border for floating windows
+  pumborder = 'rounded',                    -- border for popup menus
   foldlevelstart = 99,                      -- don't fold everything on the first fold command (e.g. za, zc, etc.)
 }
 

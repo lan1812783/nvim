@@ -27,9 +27,12 @@ local M = {
 
         -- :h lsp-inlay_hint
         if client:supports_method 'textDocument/inlayHint' then
-          vim.lsp.inlay_hint.enable(bufSizeNotBig)
+          vim.lsp.inlay_hint.enable(bufSizeNotBig, { bufnr = args.buf })
           map('n', 'grh', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            vim.lsp.inlay_hint.enable(
+              not vim.lsp.inlay_hint.is_enabled { bufnr = args.buf },
+              { bufnr = args.buf }
+            )
           end, { buffer = args.buf, desc = 'LSP: toggle inlay hint' })
         end
 
@@ -44,23 +47,14 @@ local M = {
         end
 
         -- :h lsp-codelens
-        -- https://github.com/neovim/neovim/discussions/24791#discussioncomment-13336751
         if client:supports_method 'textDocument/codeLens' then
-          if bufSizeNotBig then
-            vim.lsp.codelens.refresh()
-            vim.api.nvim_create_autocmd(
-              { 'BufEnter', 'CursorHold', 'InsertLeave' },
-              {
-                buffer = args.buf,
-                group = vim.api.nvim_create_augroup('code_lens', {}),
-                callback = vim.lsp.codelens.refresh,
-              }
+          vim.lsp.codelens.enable(bufSizeNotBig, { bufnr = args.buf })
+          map('n', 'grl', function()
+            vim.lsp.codelens.enable(
+              not vim.lsp.codelens.is_enabled { bufnr = args.buf },
+              { bufnr = args.buf }
             )
-          end
-          map('n', 'grl', vim.lsp.codelens.run, {
-            buffer = args.buf,
-            desc = 'LSP: run the code lens available in the current line',
-          })
+          end, { buffer = args.buf, desc = 'LSP: toggle code lens' })
         end
 
         -- :h lsp-attach

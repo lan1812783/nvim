@@ -39,3 +39,7 @@ require('lazy').setup {
     enabled = false,
   },
 }
+
+-- Built-in plugins must be loaded after setting up lazy
+vim.cmd.packadd 'nvim.undotree'
+vim.cmd.packadd 'nvim.difftool' -- this plugin seems to move the cursor to the right window automatically, as when using `nvim -d -c 'wincmd l'` without the `-c 'wincmd l'`
