@@ -46,4 +46,6 @@ vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previ
 vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
 vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
+vim.g.mapleader = ' '                       -- map leader to space
+
 vim.g.go = vim.fn.executable('go') == 1
