@@ -14,7 +14,7 @@ local servers = {
   'jsonls',
   'postgres_lsp',
 }
-if vim.g.go then
+if vim.fn.executable 'go' == 1 then
   servers = vim.list_extend({ 'gopls' }, servers)
 end
 
@@ -23,9 +23,13 @@ local M = {
     big_file_size = 50 * 1024, -- 50 KB
   },
   utils = {
-    ---Wrapper around `vim.keymap.set` with `opts` defaulted to `{ noremap = true, silent = true }`
+    ---Wrapper around `vim.keymap.set` with `opts` defaulted to `{ silent = true }`
+    ---@param mode string|string[]
+    ---@param lhs string
+    ---@param rhs string|function
+    ---@param opts? vim.keymap.set.Opts
     map = function(mode, lhs, rhs, opts)
-      local options = { noremap = true, silent = true }
+      local options = { silent = true }
       if opts then
         options = vim.tbl_extend('force', options, opts)
       end

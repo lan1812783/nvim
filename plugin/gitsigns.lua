@@ -11,7 +11,7 @@ require('gitsigns').setup {
     local function map(mode, l, r, opts)
       opts = opts or {}
       opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
+      require('commons').utils.map(mode, l, r, opts)
     end
 
     -- Navigation

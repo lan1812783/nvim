@@ -20,7 +20,6 @@ require('mason-lspconfig').setup {
 }
 
 local ensure_installed = vim.list_extend({
-  'codelldb',
   'checkstyle',
   'google-java-format',
   'prettierd',
@@ -33,9 +32,6 @@ local ensure_installed = vim.list_extend({
   'tree-sitter-cli', -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main?tab=readme-ov-file#requirements
   'gitleaks',
 }, require('commons').servers)
-if vim.g.go then
-  ensure_installed = vim.list_extend({ 'delve' }, ensure_installed)
-end
 
 require('mason-tool-installer').setup {
   ensure_installed = ensure_installed,

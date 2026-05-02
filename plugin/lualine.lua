@@ -23,12 +23,11 @@ local winbar = {
 require('lualine').setup {
   options = {
     disabled_filetypes = { -- Filetypes to disable lualine for.
-      winbar = { 'NvimTree', 'dap-repl', 'qf' }, -- only ignores the ft for winbar.
+      winbar = { 'NvimTree', 'dap-repl', 'dap-view', 'qf' }, -- only ignores the ft for winbar.
     },
   },
   extensions = {
     'mason',
-    'nvim-dap-ui',
     'nvim-tree',
     'quickfix',
   },

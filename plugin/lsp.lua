@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end,
       })
 
-      vim.keymap.set({ 'n', 'v' }, 'grf', vim.lsp.buf.format, {
+      map({ 'n', 'v' }, 'grf', vim.lsp.buf.format, {
         buffer = args.buf,
         desc = 'LSP: format current selection or buffer',
       })
