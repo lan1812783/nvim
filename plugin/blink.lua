@@ -6,6 +6,10 @@ vim.pack.add {
   },
 }
 
+if vim.g.use_builtin_completion then
+  return
+end
+
 require('blink.cmp').setup {
   -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
   -- 'super-tab' for mappings similar to vscode (tab to accept)

@@ -1,8 +1,7 @@
 local options = {
-  completeopt = {                           -- fuzzy match, show popup menu even when there is only one match and no item is inserted until first selection
-    'fuzzy',
-    'menuone',
-    'noinsert',
+  wildoptions = {
+    'fuzzy',                                -- enable fuzzy matching in command-line mode
+    'pum',                                  -- show completion menu while in command-line mode
   },
   pumheight = 10,                           -- maximum popup menu items
   ignorecase = true,                        -- ignore case in search patterns
@@ -15,7 +14,7 @@ local options = {
   swapfile = false,                         -- don't create a swapfile
   undofile = true,                          -- enable persistent undo
   expandtab = true,                         -- convert tabs to spaces
-  shiftround = true,                        -- round indent to multiple of 'shiftwidth'
+  shiftround = true,                        -- round indent to multiple of `shiftwidth`
   shiftwidth = 2,                           -- number of spaces inserted for each indentation
   tabstop = 2,                              -- number of spaces for a tab
   cursorline = true,                        -- highlight the current line
@@ -23,7 +22,7 @@ local options = {
   relativenumber = true,                    -- show relative line numbers
   laststatus = 3,                           -- only the last window will always have a status line
   signcolumn = 'yes',                       -- always show the sign column, otherwise it would shift the text each time
-  linebreak = true,                         -- wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen
+  linebreak = true,                         -- wrap long lines at a character in `breakat` rather than at the last character that fits on the screen
   scrolloff = 8,                            -- minimum number of screen lines to keep above and below the cursor
   colorcolumn = '80',                       -- ruler
   spell = true,                             -- enable spell checking
@@ -33,6 +32,34 @@ local options = {
   pumborder = 'rounded',                    -- border for popup menus
   foldlevelstart = 99,                      -- don't fold everything on the first fold command (e.g. za, zc, etc.)
 }
+
+-- Problems with built-in completion:
+-- - No highlight out of the box for the completion menu and the preview menu (preview menu show things like documentation), unlike the signature help (https://github.com/neovim/neovim/issues/29849).
+-- - Enable `autocomplete` set `noselect` in `completeopt` unless `preinsert` is set in `completeopt`.
+-- - `preinsert` in `completeopt` does not work with `fuzzy` (also needs to enable `infercase`).
+-- - Sometimes completion menu shows up when not desired, pressing enter occasionally accept the completion item although we want to insert a newline.
+-- - Control-space to trigger completion seems to not work as expected.
+-- - When using Snacks picker with `autocomplete` enabled, completion kicks in and puts a halt to the picker functionality, until an item is selected the picker would function -> have to disable `autocomplete` when filetype is `snacks_picker_input`.
+vim.g.use_builtin_completion = false
+if vim.g.use_builtin_completion then
+  options = vim.tbl_extend('force', options, {
+    autocomplete = true,                      -- useful in buffers without a lsp client attached, show completion menu as you type, `:h complete` for the source list
+    completeopt = {
+      'fuzzy',                             -- enable fuzzy matching
+      'menuone',                           -- show completion menu even when there is only one match
+      'noinsert',                          -- no item is inserted until first selection
+      'popup',                             -- show completion preview on selection
+    },
+  })
+else
+  options = vim.tbl_extend('force', options, {
+    completeopt = {                           -- the chosen completion plugin would handle the completion preview and other things
+      'fuzzy',                                -- although the chosen completion plugin has fuzzy matching support on its own, enable this to use with `omnicompletion`
+      'menuone',                              -- show completion menu even when there is only one match
+      'noinsert',                             -- no item is inserted until first selection
+    },
+  })
+end
 
 for k, v in pairs(options) do
   vim.opt[k] = v

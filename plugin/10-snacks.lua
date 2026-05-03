@@ -36,3 +36,12 @@ end, { desc = 'Find Files' })
 map('n', '<leader>sg', function()
   Snacks.picker.grep()
 end, { desc = 'Grep' })
+
+if vim.g.use_builtin_completion then
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'snacks_picker_input' },
+    callback = function()
+      vim.opt_local.autocomplete = false
+    end,
+  })
+end
