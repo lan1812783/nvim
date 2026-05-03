@@ -2,8 +2,11 @@ if vim.o.diff then
   return
 end
 
+if not vim.g.use_builtin_completion then
+  vim.pack.add { 'https://github.com/saghen/blink.cmp' }
+end
+
 vim.pack.add {
-  'https://github.com/saghen/blink.cmp',
   -- Mason must be set up (not only be loaded) in advance for resolving $MASON environment variable (used in jdtls' settings)
   'https://github.com/neovim/nvim-lspconfig',
 }
@@ -25,8 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     -- :h lsp-inlay_hint
+    vim.lsp.inlay_hint.enable(bufSizeNotBig, { bufnr = args.buf })
     if client:supports_method 'textDocument/inlayHint' then
-      vim.lsp.inlay_hint.enable(bufSizeNotBig, { bufnr = args.buf })
       map('n', 'grh', function()
         vim.lsp.inlay_hint.enable(
           not vim.lsp.inlay_hint.is_enabled { bufnr = args.buf },
@@ -43,8 +46,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- :h lsp-codelens
+    vim.lsp.codelens.enable(bufSizeNotBig, { bufnr = args.buf })
     if client:supports_method 'textDocument/codeLens' then
-      vim.lsp.codelens.enable(bufSizeNotBig, { bufnr = args.buf })
       map('n', 'grl', function()
         vim.lsp.codelens.enable(
           not vim.lsp.codelens.is_enabled { bufnr = args.buf },
@@ -53,7 +56,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, { buffer = args.buf, desc = 'LSP: toggle code lens' })
     end
 
+    -- :h lsp-linked_editing_range
+    vim.lsp.linked_editing_range.enable(bufSizeNotBig, { bufnr = args.buf })
+
+    if vim.g.use_builtin_completion then
+      -- :h lsp-attach
+      -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+      if client:supports_method 'textDocument/completion' then
+        -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+        -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+        -- client.server_capabilities.completionProvider.triggerCharacters = chars
+
+        vim.lsp.completion.enable(
+          true,
+          client.id,
+          args.buf,
+          { autotrigger = true }
+        )
+      end
+    end
+
     -- :h lsp-attach
+    -- Auto-format ("lint") on save.
+    -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
     if
       not client:supports_method 'textDocument/willSaveWaitUntil'
       and client:supports_method 'textDocument/formatting'
