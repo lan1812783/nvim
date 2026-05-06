@@ -43,20 +43,21 @@ local options = {
 vim.g.use_builtin_completion = false
 if vim.g.use_builtin_completion then
   options = vim.tbl_extend('force', options, {
-    autocomplete = true,                      -- useful in buffers without a lsp client attached, show completion menu as you type, `:h complete` for the source list
+    -- autocomplete = true,                    -- useful in buffers without a lsp client attached, show completion menu as you type, `:h complete` for the source list
     completeopt = {
-      'fuzzy',                             -- enable fuzzy matching
-      'menuone',                           -- show completion menu even when there is only one match
-      'noinsert',                          -- no item is inserted until first selection
-      'popup',                             -- show completion preview on selection
+      'fuzzy',                              -- enable fuzzy matching
+      'menuone',                            -- show completion menu even when there is only one match
+      'noinsert',                           -- no item is inserted until first selection
+      'popup',                              -- show completion preview on selection
     },
   })
+  vim.opt.complete:append 'o'
 else
   options = vim.tbl_extend('force', options, {
-    completeopt = {                           -- the chosen completion plugin would handle the completion preview and other things
-      'fuzzy',                                -- although the chosen completion plugin has fuzzy matching support on its own, enable this to use with `omnicompletion`
-      'menuone',                              -- show completion menu even when there is only one match
-      'noinsert',                             -- no item is inserted until first selection
+    completeopt = {                         -- the chosen completion plugin would handle the completion preview and other things
+      'fuzzy',                              -- although the chosen completion plugin has fuzzy matching support on its own, enable this to use with `omnicompletion`
+      'menuone',                            -- show completion menu even when there is only one match
+      'noinsert',                           -- no item is inserted until first selection
     },
   })
 end
