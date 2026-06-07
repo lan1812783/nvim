@@ -1,5 +1,9 @@
 local options = {
-  completeopt = { 'menuone', 'noselect' },  -- show popup menu even when there is only one match and no item is pre-selected
+  completeopt = {                           -- fuzzy match, show popup menu even when there is only one match and no item is inserted until first selection
+    'fuzzy',
+    'menuone',
+    'noinsert',
+  },
   pumheight = 10,                           -- maximum popup menu items
   ignorecase = true,                        -- ignore case in search patterns
   smartcase = true,                         -- case sensitive only when there is at least one uppercase letter in search patterns
@@ -25,7 +29,8 @@ local options = {
   spell = true,                             -- enable spell checking
   spelllang = 'en_us',                      -- languages used for spell checking
   synmaxcol = 500,                          -- limit max column for syntax highlighting to mitigate high loading time on big file
-  winborder = 'rounded',                    -- border for popup windows
+  winborder = 'rounded',                    -- border for floating windows
+  pumborder = 'rounded',                    -- border for popup menus
   foldlevelstart = 99,                      -- don't fold everything on the first fold command (e.g. za, zc, etc.)
 }
 
@@ -33,7 +38,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.opt.fillchars.eob = ' '                 -- show empty lines at the end of a buffer instead of the default `~`
+vim.opt.fillchars = { eob = ' ' }           -- show empty lines at the end of a buffer instead of the default `~`
 vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 
 -- Mitigate high loading time on big file
@@ -41,4 +46,4 @@ vim.opt.whichwrap:append 'h,l'              -- keys allowed to move to the previ
 vim.g.matchparen_timeout = 1                -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L17
 vim.g.matchparen_insert_timeout = 1         -- https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim#L20
 
-vim.g.go = vim.fn.executable('go') == 1
+vim.g.mapleader = ' '                       -- map leader to space

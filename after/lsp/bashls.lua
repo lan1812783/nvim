@@ -1,5 +1,6 @@
 ---@type vim.lsp.Config
 return {
+  ---@type lspconfig.settings.bashls
   settings = {
     -- https://github.com/bash-lsp/bash-language-server/blob/main/server/src/config.ts
     bashIde = {

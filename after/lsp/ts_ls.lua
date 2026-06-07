@@ -20,6 +20,7 @@ local options = {
 
 ---@type vim.lsp.Config
 return {
+  ---@type lspconfig.settings.ts_ls
   settings = {
     -- https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#workspacedidchangeconfiguration
     typescript = options,
