@@ -25,6 +25,8 @@ local sources = {
     extra_args = { '--line-length=80', '--skip-string-normalization' },
   },
   null_ls.builtins.diagnostics.gitleaks,
+  null_ls.builtins.diagnostics.trivy,
+  null_ls.builtins.diagnostics.golangci_lint,
 }
 
 null_ls.setup {

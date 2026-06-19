@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'man' },
+  pattern = { 'man', 'nvim-pack', 'qf' },
   callback = function()
     vim.opt_local.spell = false
   end,

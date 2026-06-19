@@ -22,6 +22,7 @@ local options = {
   number = true,                            -- show line numbers
   relativenumber = true,                    -- show relative line numbers
   laststatus = 3,                           -- only the last window will always have a status line
+  winbar = '%=%r%m %f',                     -- show winbar for more context when in splits
   signcolumn = 'yes',                       -- always show the sign column, otherwise it would shift the text each time
   linebreak = true,                         -- wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen
   scrolloff = 8,                            -- minimum number of screen lines to keep above and below the cursor
