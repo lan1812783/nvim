@@ -36,7 +36,7 @@ local options = {
 
 -- Problems with built-in completion:
 -- - No highlight out of the box for the completion menu and the preview menu (preview menu show things like documentation), unlike the signature help (https://github.com/neovim/neovim/issues/29849).
--- - Enable `autocomplete` set `noselect` in `completeopt` unless `preinsert` is set in `completeopt`.
+-- - Enabling `autocomplete` sets `noselect` in `completeopt` unless `preinsert` is set in `completeopt`. (but `noselect` seems to not take effect?)
 -- - `preinsert` in `completeopt` does not work with `fuzzy` (also needs to enable `infercase`).
 -- - Sometimes completion menu shows up when not desired, pressing enter occasionally accept the completion item although we want to insert a newline.
 -- - Control-space to trigger completion seems to not work as expected.
@@ -44,7 +44,7 @@ local options = {
 vim.g.use_builtin_completion = false
 if vim.g.use_builtin_completion then
   options = vim.tbl_extend('force', options, {
-    -- autocomplete = true,                    -- useful in buffers without a lsp client attached, show completion menu as you type, `:h complete` for the source list
+    autocomplete = true,                    -- useful in buffers without a lsp client attached, show completion menu as you type, `:h complete` for the source list
     completeopt = {
       'fuzzy',                              -- enable fuzzy matching
       'menuone',                            -- show completion menu even when there is only one match

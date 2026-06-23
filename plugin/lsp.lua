@@ -59,6 +59,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- :h lsp-linked_editing_range
     vim.lsp.linked_editing_range.enable(bufSizeNotBig, { bufnr = args.buf })
 
+    -- Potential conflict if enable both autocomplete and vim.lsp.completion,
+    -- ref: https://www.reddit.com/r/neovim/comments/1t4sfiz/comment/okawsc7
     if vim.g.use_builtin_completion then
       -- :h lsp-attach
       -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
@@ -67,12 +69,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
         -- client.server_capabilities.completionProvider.triggerCharacters = chars
 
-        vim.lsp.completion.enable(
-          true,
-          client.id,
-          args.buf,
-          { autotrigger = true }
-        )
+        -- vim.lsp.completion.enable(
+        --   true,
+        --   client.id,
+        --   args.buf,
+        --   { autotrigger = true }
+        -- )
       end
     end
 
