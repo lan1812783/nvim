@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'qf', 'help', 'checkhealth', 'query' },
+  pattern = { 'qf', 'help', 'checkhealth', 'query', 'nvim-pack' },
   callback = function()
     vim.opt_local.colorcolumn = ''
   end,
@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'man' },
+  pattern = { 'man', 'nvim-pack', 'qf' },
   callback = function()
     vim.opt_local.spell = false
   end,

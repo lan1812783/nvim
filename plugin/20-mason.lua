@@ -31,6 +31,8 @@ local ensure_installed = vim.list_extend({
   'shfmt', -- https://github.com/bash-lsp/bash-language-server?tab=readme-ov-file#dependencies
   'tree-sitter-cli', -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main?tab=readme-ov-file#requirements
   'gitleaks',
+  'trivy',
+  'golangci-lint',
 }, require('commons').servers)
 
 require('mason-tool-installer').setup {

@@ -8,7 +8,7 @@ local servers = {
   'clangd',
   'bashls',
   'yamlls',
-  'basedpyright',
+  'pyrefly',
   'harper_ls',
   'buf_ls',
   'jsonls',
