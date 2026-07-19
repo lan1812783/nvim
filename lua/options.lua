@@ -8,6 +8,7 @@ local options = {
   ignorecase = true,                        -- ignore case in search patterns
   smartcase = true,                         -- case sensitive only when there is at least one uppercase letter in search patterns
   mouse = 'a',                              -- allow the mouse usage
+  mousescroll = 'ver:1,hor:1',              -- scroll one line/column at a time (only works when using the trackpad, not when using an external mouse, tested on Mac)
   showcmd = false,                          -- hide (partial) command in the last line of the screen (for performance)
   showmode = false,                         -- hide things like -- INSERT --
   splitbelow = true,                        -- force all horizontal splits to go below current window

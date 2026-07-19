@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'qf', 'help', 'checkhealth', 'query' },
+  pattern = { 'qf', 'help', 'checkhealth', 'query', 'nvim-pack' },
   callback = function()
     vim.opt_local.colorcolumn = ''
   end,
