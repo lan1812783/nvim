@@ -3,7 +3,7 @@ local servers = {
   'stylua',
   'html',
   'cssls',
-  'ts_ls',
+  'tsc',
   'jdtls',
   'clangd',
   'bashls',

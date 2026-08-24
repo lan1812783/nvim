@@ -8,7 +8,7 @@ return {
         globals = { 'vim' },
       },
       format = {
-        enable = false,
+        enable = false, -- use stylua instead
       },
     },
   },
