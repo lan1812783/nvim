@@ -32,6 +32,7 @@ local options = {
   winborder = 'rounded',                    -- border for floating windows
   pumborder = 'rounded',                    -- border for popup menus
   foldlevelstart = 99,                      -- don't fold everything on the first fold command (e.g. za, zc, etc.)
+  exrc = true,                              -- enable project-local configuration
 }
 
 for k, v in pairs(options) do

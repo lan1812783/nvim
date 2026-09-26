@@ -1,5 +1,5 @@
 local servers = {
-  'lua_ls',
+  'emmylua_ls',
   'stylua',
   'html',
   'cssls',

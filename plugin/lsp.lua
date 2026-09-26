@@ -57,6 +57,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if
       not client:supports_method 'textDocument/willSaveWaitUntil'
       and client:supports_method 'textDocument/formatting'
+      -- Use stylua instead
+      -- https://github.com/EmmyLuaLs/emmylua-analyzer-rust/discussions/537#discussioncomment-13440651
+      and client.name ~= 'emmylua_ls'
     then
       vim.api.nvim_create_autocmd('BufWritePre', {
         group = vim.api.nvim_create_augroup('formatting', { clear = false }),
