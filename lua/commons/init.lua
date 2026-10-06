@@ -12,6 +12,7 @@ local servers = {
   'harper_ls',
   'buf_ls',
   'jsonls',
+  'tombi',
   'postgres_lsp',
 }
 if vim.fn.executable 'go' == 1 then
