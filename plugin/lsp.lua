@@ -75,6 +75,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP: format current selection or buffer',
       })
     end
+
+    if client.name == 'harper_ls' then
+      local ns = vim.lsp.diagnostic.get_namespace(client.id)
+      local signs = {
+        [vim.diagnostic.severity.ERROR] = '',
+        [vim.diagnostic.severity.WARN] = '',
+        [vim.diagnostic.severity.INFO] = '',
+        [vim.diagnostic.severity.HINT] = '',
+      }
+      vim.diagnostic.config({
+        virtual_text = false,
+        signs = {
+          text = signs,
+          numhl = signs,
+        },
+      }, ns)
+    end
   end,
 })
 
@@ -105,5 +122,16 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.INFO] = 'DiagnosticSignHint',
       [vim.diagnostic.severity.HINT] = 'DiagnosticSignInfo',
     },
+  },
+  jump = {
+    -- https://github.com/neovim/neovim/discussions/35281#discussioncomment-14062899
+    on_jump = function(diagnostic, bufnr)
+      vim.diagnostic.open_float {
+        bufnr = bufnr,
+        namespace = diagnostic.namespace,
+        scope = 'cursor',
+        focus = false,
+      }
+    end,
   },
 }

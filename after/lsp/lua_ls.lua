@@ -4,11 +4,8 @@ return {
   settings = {
     -- https://luals.github.io/wiki/settings
     Lua = {
-      diagnostics = {
-        globals = { 'vim' },
-      },
       format = {
-        enable = false,
+        enable = false, -- use stylua instead
       },
     },
   },

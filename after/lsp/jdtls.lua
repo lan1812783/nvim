@@ -9,7 +9,7 @@ return {
     -- https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
     java = {
       format = {
-        enabled = false,
+        enabled = false, -- use google_java_format instead
       },
     },
   },
