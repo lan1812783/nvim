@@ -98,9 +98,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 ----------
 
 -- With Neovim 0.11, blink.cmp automatically advertises its capabilities to all LSP servers (https://github.com/Saghen/blink.cmp/blob/main/plugin/blink-cmp.lua)
-for _, server in pairs(require('commons').servers) do
-  vim.lsp.enable(server)
-end
+vim.lsp.enable(require('commons').servers)
 
 vim.diagnostic.config {
   update_in_insert = true,
