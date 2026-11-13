@@ -1,4 +1,7 @@
-vim.pack.add { 'https://github.com/mfussenegger/nvim-jdtls' }
+vim.pack.add {
+  'https://github.com/mfussenegger/nvim-dap',
+  'https://github.com/mfussenegger/nvim-jdtls',
+}
 
 local jdtls = require 'jdtls'
 local map = require('commons').utils.map
@@ -7,3 +10,11 @@ local map = require('commons').utils.map
 map('n', '<C-M-o>', function()
   jdtls.organize_imports()
 end, { desc = 'Jdtls: organize import' })
+
+map('n', '<leader>dc', function()
+  jdtls.test_class()
+end, { desc = 'Jdtls: test class' })
+
+map('n', '<leader>dn', function()
+  jdtls.test_nearest_method()
+end, { desc = 'Jdtls: test nearest method' })

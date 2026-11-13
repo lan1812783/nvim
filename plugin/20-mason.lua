@@ -22,6 +22,8 @@ require('mason-lspconfig').setup {
 local ensure_installed = vim.list_extend({
   'checkstyle',
   'google-java-format',
+  'java-debug-adapter',
+  'java-test',
   'prettierd',
   'sonarlint-language-server',
   'pylint',
